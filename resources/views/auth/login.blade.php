@@ -32,26 +32,32 @@
             <form method="POST" action="{{ route('login') }}">
                 @csrf
                 <div class="mb-5">
-                    <label class="block font-semibold" for="username_or_email">Username or e-mail:</label>
+                    <label class="block font-semibold mb-2" for="username_or_email">Username or e-mail:</label>
                     <input
-                        class="w-full text-zinc-900 border rounded focus:border-zinc-900 focus:outline-none focus:ring-0"
+                        class="w-full text-zinc-900 border rounded-lg focus:border-zinc-900 focus:outline-none focus:ring-0 bg-zinc-100 p-3"
                         id="username_or_email" name="username_or_email" type="text" maxlength="64"
                         placeholder="Username or e-mail" required>
                 </div>
-                <div class="mb-5">
-                    <label class="block font-semibold" for="password">Password:</label>
+                <div class="mb-20">
+                    <label class="block font-semibold mb-2" for="password">Password:</label>
                     <input
-                        class="w-full text-zinc-900 border rounded focus:border-zinc-900 focus:outline-none focus:ring-0"
+                        class="w-full text-zinc-900 border rounded-lg focus:border-zinc-900 focus:outline-none focus:ring-0 bg-zinc-100 p-3"
                         id="password" name="password" type="password" placeholder="Password" required>
                 </div>
                 <div class="mb-5 gap-5">
                     <button
-                        class="block font-bold bg-sky-500 hover:bg-sky-700 text-zinc-100 transition-colros duration-500 mx-auto p-5 border border-zinc-200 rounded-lg w-80 mb-2"
+                        class="block font-bold bg-sky-500 hover:bg-sky-700 text-zinc-100 transition-colros duration-500 mx-auto p-5 border border-zinc-200 rounded-lg w-80 mb-5"
                         type="submit">Login</button>
-                    <a class="block text-center font-bold bg-indigo-500 hover:bg-indigo-700 transition-colors duration-500 text-zinc-100 mx-auto p-5 border border-zinc-200 rounded-lg w-80 mb-2"
-                        href="{{ route('register') }}">Register</a>
-                    <a class="block text-center font-bold bg-teal-500 hover:bg-teal-700 transition-colors duration-500 text-zinc-100 mx-auto p-5 border border-zinc-200 rounded-lg w-80"
-                        href="{{ route('password.request') }}">Forgot password</a>
+                    <div class="mb-5 mx-auto w-80">
+                        <p class="font-bold mb-2">You don't have an account?</p>
+                        <a class="block text-center font-bold bg-indigo-500 hover:bg-indigo-700 transition-colors duration-500 text-zinc-100 mx-auto p-5 border border-zinc-200 rounded-lg"
+                            href="{{ route('register') }}">Register</a>
+                    </div>
+                    <div class="mb-2 mx-auto w-80">
+                        <p class="font-bold mb-2">You don't remember your password?</p>
+                        <a class="block text-center font-bold bg-teal-500 hover:bg-teal-700 transition-colors duration-500 text-zinc-100 mx-auto p-5 border border-zinc-200 rounded-lg w-80"
+                            href="{{ route('password.request') }}">Reset password</a>
+                    </div>
                 </div>
             </form>
         </div>
