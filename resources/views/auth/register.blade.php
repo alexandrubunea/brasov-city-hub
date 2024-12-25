@@ -27,6 +27,9 @@
                     <input
                         class="w-full text-zinc-900 border rounded-lg focus:border-zinc-900 focus:outline-none focus:ring-0 bg-zinc-100 p-3"
                         id="first_name" name="first_name" type="text" placeholder="First Name" required>
+                    @error('first_name')
+                        <livewire:Alert title="INVALID FIRST NAME" message="{{ $message }}" type="error" />
+                    @enderror
                 </div>
 
                 <div class="mb-5">
@@ -34,6 +37,9 @@
                     <input
                         class="w-full text-zinc-900 border rounded-lg focus:border-zinc-900 focus:outline-none focus:ring-0 bg-zinc-100 p-3"
                         id="second_name" name="second_name" type="text" placeholder="Second Name" required>
+                    @error('second_name')
+                        <livewire:Alert title="INVALID SECOND NAME" message="{{ $message }}" type="error" />
+                    @enderror
                 </div>
 
                 <div class="mb-5">
@@ -41,6 +47,9 @@
                     <input
                         class="w-full text-zinc-900 border rounded-lg focus:border-zinc-900 focus:outline-none focus:ring-0 bg-zinc-100 p-3"
                         id="username" name="username" type="text" placeholder="Username" required>
+                    @error('username')
+                        <livewire:Alert title="INVALID USERNAME" message="{{ $message }}" type="error" />
+                    @enderror
                 </div>
 
                 <div class="mb-5">
@@ -48,6 +57,9 @@
                     <input
                         class="w-full text-zinc-900 border rounded-lg focus:border-zinc-900 focus:outline-none focus:ring-0 bg-zinc-100 p-3"
                         id="email" name="email" type="email" placeholder="E-mail" required>
+                    @error('email')
+                        <livewire:Alert title="INVALID EMAIL" message="{{ $message }}" type="error" />
+                    @enderror
                 </div>
 
                 <div class="mb-5">
@@ -55,14 +67,20 @@
                     <input
                         class="w-full text-zinc-900 border rounded-lg focus:border-zinc-900 focus:outline-none focus:ring-0 bg-zinc-100 p-3"
                         id="password" name="password" type="password" placeholder="Password" required>
+                    @error('password')
+                        <livewire:Alert title="INVALID PASSWORD" message="{{ $message }}" type="error" />
+                    @enderror
                 </div>
 
                 <div class="mb-20">
                     <label class="block font-semibold mb-2" for="confirm_password">Confirm Password:</label>
                     <input
                         class="w-full text-zinc-900 border rounded-lg focus:border-zinc-900 focus:outline-none focus:ring-0 bg-zinc-100 p-3"
-                        id="confirm_password" name="confirm_password" type="password" placeholder="Confirm Password"
-                        required>
+                        id="password_confirmation" name="password_confirmation" type="password"
+                        placeholder="Confirm Password" required>
+                    @error('password_confirmation')
+                        <livewire:Alert title="INVALID PASSWORD CONFIRMATION" message="{{ $message }}" type="error" />
+                    @enderror
                 </div>
 
                 <div class="mb-5 gap-5">

@@ -16,7 +16,7 @@ class Alert extends Component
         $this->title = $title;
         $this->message = $message;
 
-        if($type === 'error') {
+        if($type == 'error') {
             $this->bg_color = 'bg-red-500';
             $this->symbol = '<i class="fa-solid fa-triangle-exclamation"></i>';
         }

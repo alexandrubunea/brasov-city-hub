@@ -9,6 +9,8 @@ export default {
         './resources/views/**/*.blade.php',
         './resources/css/*.css',
     ],
-
+    safelist: [
+        'bg-red-500',
+    ],
     plugins: [forms, typography],
 };
