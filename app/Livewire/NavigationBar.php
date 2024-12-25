@@ -34,15 +34,11 @@ class NavigationBar extends Component
         ];
 
         $conditional_tabs = [];
-        if(Auth::check()) {
+        if (Auth::check()) {
             $conditional_tabs = [
                 'Profile' => [
                     'route' => 'profile',
                     'active' => strcmp('profile', $active_tab) == 0
-                ],
-                'Logout' => [
-                    'route' => 'logout',
-                    'active' => strcmp('logout', $active_tab) == 0
                 ]
             ];
         } else {

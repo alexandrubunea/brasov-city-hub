@@ -36,7 +36,7 @@
                     <label class="block font-semibold mb-2" for="username_or_email">Username or e-mail:</label>
                     <input
                         class="w-full text-zinc-900 border rounded-lg focus:border-zinc-900 focus:outline-none focus:ring-0 bg-zinc-100 p-3"
-                        id="username_or_email" name="username_or_email" type="text" maxlength="64"
+                        id="email" name="email" type="text" maxlength="64"
                         placeholder="Username or e-mail" required>
                 </div>
                 <div class="mb-20">
