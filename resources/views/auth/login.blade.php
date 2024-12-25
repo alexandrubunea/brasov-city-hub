@@ -13,6 +13,7 @@
 </head>
 
 <body class="bg-slate-950">
+    <livewire:NavigationBar active_tab="login"/>
     <div class="flex">
         <div class="bg-slate-900 text-zinc-200 rounded-xl mx-auto min-w-md max-w-xl p-5 my-10">
             <h1 class="font-bold text-4xl">Login <i class="fa-solid fa-unlock-keyhole"></i></h1>

@@ -13,6 +13,7 @@
 </head>
 
 <body class="bg-slate-950">
+    <livewire:NavigationBar active_tab="register"/>
     <div class="flex">
         <div class="bg-slate-900 text-zinc-200 rounded-xl mx-auto min-w-md max-w-xl p-5 my-10">
             <h1 class="font-bold text-4xl">Register <i class="fa-solid fa-address-card"></i></h1>

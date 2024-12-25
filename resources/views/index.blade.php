@@ -8,8 +8,8 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body>
-    <h1 class="text-red-500">Hello, world!</h1>
+<body class="bg-slate-950">
+    <livewire:NavigationBar active_tab="home"/>
 </body>
 
 </html>
