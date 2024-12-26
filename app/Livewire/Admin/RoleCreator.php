@@ -3,9 +3,6 @@
 namespace App\Livewire\Admin;
 
 use Livewire\Component;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Validation\ValidationException;
-
 use App\Models\Role;
 
 class RoleCreator extends Component
@@ -45,7 +42,5 @@ class RoleCreator extends Component
         Role::create($validated);
 
         $this->reset(['role_name', 'news_creator', 'news_moderator', 'discussions_creator', 'discussions_moderator', 'users_moderator', 'roles_moderator']);
-
-        $this->addError('submit', 'Failed to create the role');
     }
 }
