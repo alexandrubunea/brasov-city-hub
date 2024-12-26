@@ -5,15 +5,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ config('app.name') }} - Login</title>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body class="bg-slate-950">
-    <livewire:NavigationBar active_tab="register"/>
+    <livewire:NavigationBar active_tab="register" />
     <div class="flex">
         <div class="bg-slate-900 text-zinc-200 rounded-xl mx-auto min-w-md max-w-xl p-5 my-10">
             <h1 class="font-bold text-4xl">Register <i class="fa-solid fa-address-card"></i></h1>
@@ -80,7 +76,8 @@
                         id="password_confirmation" name="password_confirmation" type="password"
                         placeholder="Confirm Password" required>
                     @error('password_confirmation')
-                        <livewire:Alert title="INVALID PASSWORD CONFIRMATION" message="{{ $message }}" type="error" />
+                        <livewire:Alert title="INVALID PASSWORD CONFIRMATION" message="{{ $message }}"
+                            type="error" />
                     @enderror
                 </div>
 
