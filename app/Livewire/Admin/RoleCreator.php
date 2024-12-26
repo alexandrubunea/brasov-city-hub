@@ -4,9 +4,11 @@ namespace App\Livewire\Admin;
 
 use Livewire\Component;
 use App\Models\Role;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class RoleCreator extends Component
 {
+    use LivewireAlert;
 
     public string $role_name;
     public bool $news_creator = false;
@@ -42,5 +44,16 @@ class RoleCreator extends Component
         Role::create($validated);
 
         $this->reset(['role_name', 'news_creator', 'news_moderator', 'discussions_creator', 'discussions_moderator', 'users_moderator', 'roles_moderator']);
+
+        $this->alert(
+            'success',
+            'Successful Operation',
+            [
+                'text' => 'The role has been created.',
+                'toast' => false,
+                'position' => 'center',
+                'timer' => 2000,
+            ]
+        );
     }
 }

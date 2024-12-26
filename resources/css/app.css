@@ -1,4 +1,13 @@
+@import "/node_modules/@fortawesome/fontawesome-free/css/all.min.css";
+
 @import 'flowbite';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.swal2-popup {
+    @apply bg-zinc-900 rounded-lg;
+}
+.swal2-title, .swal2-html-container {
+    @apply text-zinc-200;
+}
