@@ -8,9 +8,14 @@ export default {
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
         './resources/css/*.css',
+        './node_modules/flowbite/**/*.js',
     ],
     safelist: [
         'bg-red-500',
     ],
-    plugins: [forms, typography],
+    plugins: [
+        forms,
+        typography,
+        require('flowbite'),
+    ],
 };
