@@ -30,12 +30,12 @@
                 </div>
 
                 <div class="mb-5">
-                    <label class="block font-semibold mb-2" for="second_name">Second Name:</label>
+                    <label class="block font-semibold mb-2" for="last_name">Last Name:</label>
                     <input
                         class="w-full text-zinc-900 border rounded-lg focus:border-zinc-900 focus:outline-none focus:ring-0 bg-zinc-100 p-3"
-                        id="second_name" name="second_name" type="text" placeholder="Second Name" required>
-                    @error('second_name')
-                        <livewire:Alert title="INVALID SECOND NAME" message="{{ $message }}" type="error" />
+                        id="last_name" name="last_name" type="text" placeholder="Last Name" required>
+                    @error('last_name')
+                        <livewire:Alert title="INVALID LAST NAME" message="{{ $message }}" type="error" />
                     @enderror
                 </div>
 
