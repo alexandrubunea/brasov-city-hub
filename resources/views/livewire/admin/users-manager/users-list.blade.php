@@ -14,7 +14,8 @@
             <button class="text-zinc-200 bg-zinc-950 rounded-xl p-3" @click="open = !open"><i class="fa-solid"
                     :class="open ? 'fa-chevron-up' : 'fa-chevron-down'"></i></button>
         </div>
-        <form wire:prevent="searchUser" x-show="open" x-collapse x-cloak x-transition:enter="transition ease-out duration-200"
+        <form wire:submit.prevent="searchUser" x-show="open" x-collapse x-cloak
+            x-transition:enter="transition ease-out duration-200"
             x-transition:enter-start="opacity-0 transform scale-95"
             x-transition:enter-end="opacity-100 transform scale-100" x-transition:leave="transition ease-in duration-75"
             x-transition:leave-start="opacity-100 transform scale-100"
@@ -43,7 +44,7 @@
                     class="w-full text-zinc-900 border rounded-lg focus:border-zinc-900 focus:outline-none focus:ring-0 bg-zinc-100 p-3"
                     id="email" wire:model="email" type="text" placeholder="E-mail">
             </div>
-            <div class="my-2">
+            <div class="mt-10 my-2">
                 <label class="text-md font-bold block mb-1" for="role">Filter by role:</label>
                 <select
                     class="w-full text-zinc-900 border rounded-lg focus:border-zinc-900 focus:outline-none focus:ring-0 bg-zinc-100 p-3"
@@ -54,17 +55,36 @@
                     @endforeach
                 </select>
             </div>
+            <div class="my-2">
+                <label class="text-md font-bold block mb-1" for="order_by">Order by:</label>
+                <select
+                    class="w-full text-zinc-900 border rounded-lg focus:border-zinc-900 focus:outline-none focus:ring-0 bg-zinc-100 p-3"
+                    id="order_by" wire:model="order_by">
+                    <option value="created_at" selected>Join Date</option> 
+                    <option value="first_name">First Name</option> 
+                    <option value="last_name">Last Date</option> 
+                    <option value="username">Username</option> 
+                    <option value="email">E-mail</option> 
+                </select>
+                <label class="text-md font-bold block my-1" for="asc_or_desc">Sort by:</label>
+                <select
+                    class="w-full text-zinc-900 border rounded-lg focus:border-zinc-900 focus:outline-none focus:ring-0 bg-zinc-100 p-3"
+                    id="sort_by" wire:model="sort_by">
+                    <option value="asc" selected>Ascending Order</option> 
+                    <option value="desc">Descending Order</option> 
+                </select>
+            </div>
             <div class="my-2 flex flex-row gap-2 w-40">
                 <button type="submit"
                     class="mx-auto p-3 uppercase font-bold bg-emerald-500 text-xl rounded-lg mt-5 hover:bg-emerald-700 transition-colors duration-500">Search</button>
-                <button type="button" livewire:click=""
+                <button type="button" wire:click="resetSearch"
                     class="mx-auto p-3 uppercase font-bold bg-red-500 text-xl rounded-lg mt-5 hover:bg-red-700 transition-colors duration-500">Reset</button>
             </div>
         </form>
     </div>
     <div class="flex flex-col mt-5 rounded-lg p-5 bg-indigo-950 max-h-96 overflow-y-scroll gap-5">
         @foreach ($users as $user)
-            <livewire:admin.users-manager.user :first_name="$user->first_name" :last_name="$user->last_name" :username="$user->username" :email="$user->email"
+            <livewire:admin.users-manager.user :wire:key="'user-'.$user->id" :first_name="$user->first_name" :last_name="$user->last_name" :username="$user->username" :email="$user->email"
                 :created_at="$user->created_at" />
         @endforeach
     </div>
