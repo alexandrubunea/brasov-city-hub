@@ -8,7 +8,6 @@ export default {
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
         './resources/css/*.css',
-        './node_modules/flowbite/**/*.js',
     ],
     safelist: [
         'bg-red-500',
@@ -16,6 +15,5 @@ export default {
     plugins: [
         forms,
         typography,
-        require('flowbite'),
     ],
 };

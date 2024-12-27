@@ -1,6 +1,5 @@
 @import "/node_modules/@fortawesome/fontawesome-free/css/all.min.css";
 
-@import 'flowbite';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
