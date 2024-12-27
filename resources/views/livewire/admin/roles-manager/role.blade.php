@@ -10,11 +10,11 @@
         x-transition:enter-start="opacity-0 transform scale-95" x-transition:enter-end="opacity-100 transform scale-100"
         x-transition:leave="transition ease-in duration-75" x-transition:leave-start="opacity-100 transform scale-100"
         x-transition:leave-end="opacity-0 transform scale-95">
-        <form wire:submit.prevent="">
+        <form wire:submit.prevent="updateRole">
             <div class="mb-5">
                 <label class="text-md font-bold block mb-1" for="role_name">The name of the role:</label>
                 <input
-                    class="w-full text-zinc-900 border rounded-lg focus:border-zinc-900 focus:outline-none focus:ring-0 bg-zinc-100 p-3"
+                    class="w-full text-zinc-900 border rounded-lg focus:border-zinc-900 focus:outline-none focus:ring-0 bg-zinc-100 p-3 uppercase"
                     id="role_name" wire:model="role_name" type="text" placeholder="Name of the role" required>
             </div>
             <div class="mb-2">
@@ -92,7 +92,7 @@
                 <button type="submit"
                     class="p-3 uppercase font-bold bg-green-600 text-xl rounded-lg mt-5 hover:bg-green-800 transition-colors duration-500">Save
                     changes</button>
-                <button type="button"
+                <button type="button" wire:click="deleteRole"
                     class="p-3 uppercase font-bold bg-red-500 text-xl rounded-lg mt-5 hover:bg-red-700 transition-colors duration-500">Delete</button>
             </div>
         </form>

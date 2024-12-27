@@ -1,5 +1,5 @@
 <div class="bg-blue-950 p-5 text-zinc-200 rounded-md">
-    <h1 class="font-bold uppercase text-2xl">Manage roles</h1>
+    <h1 class="font-bold uppercase text-2xl"><i class="fa-solid fa-shield-halved"></i> Manage roles</h1>
     <p class="font-light text-md">Modify or delete already existing roles, use with caution, you will not be prevented
         to delete or edit <span class="text-red-500">your own role that allows you to do these changes</span>.</p>
     <hr class="my-3">

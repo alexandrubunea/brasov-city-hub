@@ -19,7 +19,7 @@ class RoleCreator extends Component
     public bool $roles_moderator = false;
 
     protected $rules = [
-        'role_name' => 'required|unique:roles,role_name|max:32',
+        'role_name' => 'required|uppercase|unique:roles,role_name|max:32',
 
         'news_creator' => 'boolean',
         'news_moderator' => 'boolean',
@@ -39,6 +39,8 @@ class RoleCreator extends Component
 
     public function createRoleForm()
     {
+        $this->role_name = strtoupper($this->role_name);        
+
         $validated = $this->validate();
 
         Role::create($validated);

@@ -1,5 +1,5 @@
 <div class="bg-slate-700 p-5 text-zinc-200 rounded-md">
-    <h1 class="font-bold uppercase text-2xl">Create new role</h1>
+    <h1 class="font-bold uppercase text-2xl"><i class="fa-solid fa-file-pen"></i> Create new role</h1>
     <p class="font-light text-md">Create the roles that you need in a responsible manner, this is the most powerful
         action.</p>
     <hr class="my-3">
@@ -10,7 +10,7 @@
         <div class="mb-5">
             <label class="text-md font-bold block mb-1" for="role_name">The name of the role:</label>
             <input
-                class="w-full text-zinc-900 border rounded-lg focus:border-zinc-900 focus:outline-none focus:ring-0 bg-zinc-100 p-3"
+                class="w-full text-zinc-900 border rounded-lg focus:border-zinc-900 focus:outline-none focus:ring-0 bg-zinc-100 p-3 uppercase"
                 id="role_name" wire:model="role_name" type="text" placeholder="Name of the role" required>
         </div>
         <div class="mb-2">
