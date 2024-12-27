@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Admin;
+namespace App\Livewire\Admin\RolesManager;
 
 use Livewire\Component;
 use App\Models\Role;
@@ -34,7 +34,7 @@ class RoleCreator extends Component
 
     public function render()
     {
-        return view('livewire.admin.role-creator');
+        return view('livewire.admin.roles-manager.role-creator');
     }
 
     public function createRoleForm()
@@ -55,5 +55,7 @@ class RoleCreator extends Component
                 'timer' => 2000,
             ]
         );
+
+        $this->dispatch('refreshList')->to(RolesList::class);
     }
 }

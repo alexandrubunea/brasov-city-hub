@@ -10,9 +10,9 @@
 
 <body class="bg-slate-950">
     <livewire:NavigationBar active_tab="home" />
-    <div class="flex flex-row py-10 lg:px-10">
-        <livewire:admin.role-creator />
-        <livewire:admin.roles-list />
+    <div class="flex flex-row py-10 lg:px-10 gap-10">
+        <livewire:admin.roles-manager.role-creator />
+        <livewire:admin.roles-manager.roles-list />
     </div>
 
 

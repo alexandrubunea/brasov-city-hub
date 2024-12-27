@@ -73,7 +73,7 @@
         </div>
         <div class="mb-5">
             <label class="inline-flex items-center me-5 cursor-pointer">
-                <input type="checkbox" class="sr-only peer" id="roles_moderator" wire:mode="roles_moderator"
+                <input type="checkbox" class="sr-only peer" id="roles_moderator" wire:model="roles_moderator"
                     value="true">
                 <div
                     class="relative w-11 h-6 bg-slate-900 rounded-full peer peer-focus:ring peer-focus:ring-red-500 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-zinc-900 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-red-700">

@@ -83,11 +83,11 @@
 
                 <div class="mb-5 gap-5">
                     <button
-                        class="block font-bold bg-sky-500 hover:bg-sky-700 text-zinc-100 transition-colros duration-500 mx-auto p-5 border border-zinc-200 rounded-lg w-80 mb-5"
+                        class="block font-bold bg-sky-500 hover:bg-sky-700 text-zinc-100 transition-colros duration-500 mx-auto p-5 rounded-lg w-80 mb-5"
                         type="submit">Register</button>
                     <div class="mb-5 mx-auto w-80">
                         <p class="font-bold mb-2">Already have an account?</p>
-                        <a class="block text-center font-bold bg-indigo-500 hover:bg-indigo-700 transition-colors duration-500 text-zinc-100 mx-auto p-5 border border-zinc-200 rounded-lg"
+                        <a class="block text-center font-bold bg-indigo-500 hover:bg-indigo-700 transition-colors duration-500 text-zinc-100 mx-auto p-5 rounded-lg"
                             href="{{ route('login') }}">Login</a>
                     </div>
                 </div>
