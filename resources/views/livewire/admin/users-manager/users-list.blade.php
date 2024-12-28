@@ -96,13 +96,21 @@
             </div>
         </form>
     </div>
-    <div class="flex flex-col mt-5 rounded-lg p-5 bg-indigo-950 h-96 overflow-y-scroll gap-5">
-        @foreach ($users as $user)
-            <livewire:admin.users-manager.user :wire:key="'user-'.$user['id']" :user_id="$user['id']" :first_name="$user['first_name']"
-                :last_name="$user['last_name']" :username="$user['username']" :email="$user['email']" :roles="$user['roles']" :created_at="$user['created_at']"
-                :updated_at="$user['updated_at']" />
-        @endforeach
+    <div class="bg-indigo-950 h-96 overflow-y-scroll p-5 mt-5">
+        @if (sizeof($users) > 0)
+            <div class="flex flex-col gap-5">
+                @foreach ($users as $user)
+                    <livewire:admin.users-manager.user :wire:key="'user-'.$user['id']" :user_id="$user['id']"
+                        :first_name="$user['first_name']" :last_name="$user['last_name']" :username="$user['username']" :email="$user['email']" :roles="$user['roles']"
+                        :created_at="$user['created_at']" :updated_at="$user['updated_at']" />
+                @endforeach
+            </div>
+        @else
+            <h1 class="text-xl font-bold uppercase text-zinc-400">No users found...</h1>
+            <p class="font-light text-md text-justify text-zinc-400">There is no user to match your search criteria.</p>
+        @endif
     </div>
+
     @if ($number_of_pages)
         <div class="flex flex-row justify-center mt-5 rounded-lg p-5 bg-indigo-950 gap-5">
             @if ($current_page - 1 > 1)

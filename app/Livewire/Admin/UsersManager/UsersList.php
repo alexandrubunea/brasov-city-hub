@@ -48,6 +48,11 @@ class UsersList extends Component
         if (!empty($this->email))
             $query->whereRaw('LOWER(email) LIKE ?', ['%' . strtolower($this->email) . '%']);
 
+        if ($this->role != 'all_roles')
+            $query->whereHas('roles', function ($q) {
+                $q->where('role_name', $this->role);
+            });
+
         $this->db_users = $query
             ->with('roles')
             ->orderBy($this->order_by, $this->sort_by)
