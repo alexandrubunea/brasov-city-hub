@@ -1,9 +1,12 @@
 <div class="bg-indigo-900 rounded-md p-5 text-zinc-200">
     <h1 class="text-2xl font-bold uppercase"><i class="fa-solid fa-users"></i> Registered Users</h1>
-    <p class="font-light text-md text-justify">Below is the complete list of users registered on <span
-            class="text-red-500 font-bold">{{ config('app.name') }}</span>. From this interface, you can manage user
-        roles or ban/unban accounts. Please note that you cannot assign roles higher than your own. However, you can
-        remove your own roles, so proceed with caution.</p>
+    <p class="font-light text-md text-justify">This section provides a complete list of users registered on <span
+            class="text-red-500 font-bold">{{ config('app.name') }}</span>. From here, you can search for users and
+        select a specific account to manage. Simply click on a user's profile to load their details into the <span class="text-red-500 font-bold">User
+        Moderator Tools</span> panel. This interface is your starting point for user management tasks, such as
+        reviewing account information, updating user roles (within your permission level), or managing their account
+        status. Please note that you cannot assign roles higher than your own or perform actions without the necessary
+        permissions.</p>
     <hr class="my-3">
     <div class="rounded-lg p-5 bg-indigo-950" x-data="{ open: false }">
         <div class="flex flex-row justify-between">
@@ -94,8 +97,9 @@
     </div>
     <div class="flex flex-col mt-5 rounded-lg p-5 bg-indigo-950 h-96 overflow-y-scroll gap-5">
         @foreach ($users as $user)
-            <livewire:admin.users-manager.user :wire:key="'user-'.$user->id" :first_name="$user->first_name" :last_name="$user->last_name"
-                :username="$user->username" :email="$user->email" :created_at="$user->created_at" />
+            <livewire:admin.users-manager.user :wire:key="'user-'.$user['id']" :user_id="$user['id']" :first_name="$user['first_name']"
+                :last_name="$user['last_name']" :username="$user['username']" :email="$user['email']" :roles="$user['roles']" :created_at="$user['created_at']"
+                :updated_at="$user['updated_at']" />
         @endforeach
     </div>
     @if ($number_of_pages)

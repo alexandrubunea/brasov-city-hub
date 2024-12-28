@@ -22,7 +22,7 @@ class UsersList extends Component
 
     public int $current_page = 1;
     public int $results_on_page = 10;
-    public int $number_of_pages; 
+    public int $number_of_pages;
 
     public function mount()
     {
@@ -47,17 +47,21 @@ class UsersList extends Component
             $query->whereRaw('LOWER(username) LIKE ?', ['%' . strtolower($this->username) . '%']);
         if (!empty($this->email))
             $query->whereRaw('LOWER(email) LIKE ?', ['%' . strtolower($this->email) . '%']);
-         
-        $this->db_users = $query->orderBy($this->order_by, $this->sort_by)->get();
+
+        $this->db_users = $query
+            ->with('roles')
+            ->orderBy($this->order_by, $this->sort_by)
+            ->get()
+            ->toArray();
         $this->loadUsersPage();
     }
-    
+
     public function loadUsersPage()
     {
         $this->number_of_pages = ceil(count($this->db_users) / $this->results_on_page);
-        
+
         $start = $this->results_on_page * ($this->current_page - 1);
-        $this->users = $this->db_users->slice($start, $this->results_on_page);
+        $this->users = array_slice($this->db_users, $start, $this->results_on_page);
     }
 
     public function searchUser()
@@ -73,18 +77,18 @@ class UsersList extends Component
         $this->email = '';
         $this->role = 'all_roles';
         $this->order_by = 'created_at';
-        $this->sort_by = 'asc';        
+        $this->sort_by = 'asc';
         $this->results_on_page = 10;
 
         $this->loadUsers();
     }
-    
+
     public function firstPage()
     {
         $this->current_page = 1;
         $this->loadUsersPage();
     }
-    
+
     public function lastPage()
     {
         $this->current_page = $this->number_of_pages;
@@ -95,7 +99,7 @@ class UsersList extends Component
     {
         if ($this->current_page >= $this->number_of_pages)
             return;
-        
+
         $this->current_page += 1;
         $this->loadUsersPage();
     }
@@ -104,7 +108,7 @@ class UsersList extends Component
     {
         if ($this->current_page <= 1)
             return;
-        
+
         $this->current_page -= 1;
         $this->loadUsersPage();
     }

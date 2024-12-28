@@ -19,4 +19,9 @@ class Role extends Model
 
         'roles_moderator'
     ];
+
+    public function users()
+    {
+            return $this->belongsToMany(User::class, 'user_roles', 'role_id', 'user_id');
+    }
 }
