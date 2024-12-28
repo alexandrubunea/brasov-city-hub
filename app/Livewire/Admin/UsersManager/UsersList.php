@@ -10,6 +10,7 @@ class UsersList extends Component
 {
     public array $roles;
     public $users;
+    public $db_users;
 
     public string $first_name;
     public string $last_name;
@@ -18,6 +19,21 @@ class UsersList extends Component
     public string $role = 'all_roles';
     public string $order_by = 'created_at';
     public string $sort_by = 'asc';
+
+    public int $current_page = 1;
+    public int $results_on_page = 10;
+    public int $number_of_pages; 
+
+    public function mount()
+    {
+        $this->roles = Role::orderBy('role_name', 'asc')->pluck('role_name')->toArray();
+        $this->loadUsers();
+    }
+
+    public function render()
+    {
+        return view('livewire.admin.users-manager.users-list');
+    }
 
     public function loadUsers()
     {
@@ -32,18 +48,16 @@ class UsersList extends Component
         if (!empty($this->email))
             $query->whereRaw('LOWER(email) LIKE ?', ['%' . strtolower($this->email) . '%']);
          
-        $this->users = $query->orderBy($this->order_by, $this->sort_by)->get();
+        $this->db_users = $query->orderBy($this->order_by, $this->sort_by)->get();
+        $this->loadUsersPage();
     }
-
-    public function mount()
+    
+    public function loadUsersPage()
     {
-        $this->roles = Role::orderBy('role_name', 'asc')->pluck('role_name')->toArray();
-        $this->loadUsers();
-    }
-
-    public function render()
-    {
-        return view('livewire.admin.users-manager.users-list');
+        $this->number_of_pages = ceil(count($this->db_users) / $this->results_on_page);
+        
+        $start = $this->results_on_page * ($this->current_page - 1);
+        $this->users = $this->db_users->slice($start, $this->results_on_page);
     }
 
     public function searchUser()
@@ -60,7 +74,38 @@ class UsersList extends Component
         $this->role = 'all_roles';
         $this->order_by = 'created_at';
         $this->sort_by = 'asc';        
+        $this->results_on_page = 10;
 
         $this->loadUsers();
+    }
+    
+    public function firstPage()
+    {
+        $this->current_page = 1;
+        $this->loadUsersPage();
+    }
+    
+    public function lastPage()
+    {
+        $this->current_page = $this->number_of_pages;
+        $this->loadUsersPage();
+    }
+
+    public function nextPage()
+    {
+        if ($this->current_page >= $this->number_of_pages)
+            return;
+        
+        $this->current_page += 1;
+        $this->loadUsersPage();
+    }
+
+    public function prevPage()
+    {
+        if ($this->current_page <= 1)
+            return;
+        
+        $this->current_page -= 1;
+        $this->loadUsersPage();
     }
 }

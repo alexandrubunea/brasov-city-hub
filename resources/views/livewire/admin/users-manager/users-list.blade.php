@@ -21,31 +21,28 @@
             x-transition:leave-start="opacity-100 transform scale-100"
             x-transition:leave-end="opacity-0 transform scale-95">
             <div class="my-2">
-                <label class="text-md font-bold block mb-1" for="first_name">First Name:</label>
+                <label class="text-md font-bold block mt-3 mb-1" for="first_name">First Name:</label>
                 <input
                     class="w-full text-zinc-900 border rounded-lg focus:border-zinc-900 focus:outline-none focus:ring-0 bg-zinc-100 p-3"
                     id="first_name" wire:model="first_name" type="text" placeholder="First Name">
-            </div>
-            <div class="my-2">
-                <label class="text-md font-bold block mb-1" for="last_name">Last Name:</label>
+
+                <label class="text-md font-bold block mt-3 mb-1" for="last_name">Last Name:</label>
                 <input
                     class="w-full text-zinc-900 border rounded-lg focus:border-zinc-900 focus:outline-none focus:ring-0 bg-zinc-100 p-3"
                     id="last_name" wire:model="last_name" type="text" placeholder="Last Name">
-            </div>
-            <div class="my-2">
-                <label class="text-md font-bold block mb-1" for="first_name">Username:</label>
+
+                <label class="text-md font-bold block mt-3 mb-1" for="first_name">Username:</label>
                 <input
                     class="w-full text-zinc-900 border rounded-lg focus:border-zinc-900 focus:outline-none focus:ring-0 bg-zinc-100 p-3"
                     id="username" wire:model="username" type="text" placeholder="Username">
-            </div>
-            <div class="my-2">
-                <label class="text-md font-bold block mb-1" for="first_name">E-mail:</label>
+
+                <label class="text-md font-bold block mt-3 mb-1" for="first_name">E-mail:</label>
                 <input
                     class="w-full text-zinc-900 border rounded-lg focus:border-zinc-900 focus:outline-none focus:ring-0 bg-zinc-100 p-3"
                     id="email" wire:model="email" type="text" placeholder="E-mail">
             </div>
             <div class="mt-10 my-2">
-                <label class="text-md font-bold block mb-1" for="role">Filter by role:</label>
+                <label class="text-md font-bold block mt-3 mb-1" for="role">Filter by role:</label>
                 <select
                     class="w-full text-zinc-900 border rounded-lg focus:border-zinc-900 focus:outline-none focus:ring-0 bg-zinc-100 p-3"
                     id="role" wire:model="role">
@@ -54,27 +51,40 @@
                         <option value="{{ $role }}">{{ $role }}</option>
                     @endforeach
                 </select>
-            </div>
-            <div class="my-2">
-                <label class="text-md font-bold block mb-1" for="order_by">Order by:</label>
+
+                <label class="text-md font-bold block mt-3 mb-1" for="order_by">Order by:</label>
                 <select
                     class="w-full text-zinc-900 border rounded-lg focus:border-zinc-900 focus:outline-none focus:ring-0 bg-zinc-100 p-3"
                     id="order_by" wire:model="order_by">
-                    <option value="created_at" selected>Join Date</option> 
-                    <option value="first_name">First Name</option> 
-                    <option value="last_name">Last Date</option> 
-                    <option value="username">Username</option> 
-                    <option value="email">E-mail</option> 
+                    <option value="created_at" selected>Join Date</option>
+                    <option value="first_name">First Name</option>
+                    <option value="last_name">Last Date</option>
+                    <option value="username">Username</option>
+                    <option value="email">E-mail</option>
                 </select>
-                <label class="text-md font-bold block my-1" for="asc_or_desc">Sort by:</label>
+
+                <label class="text-md font-bold block mt-3 mb-1" for="asc_or_desc">Sort by:</label>
                 <select
                     class="w-full text-zinc-900 border rounded-lg focus:border-zinc-900 focus:outline-none focus:ring-0 bg-zinc-100 p-3"
                     id="sort_by" wire:model="sort_by">
-                    <option value="asc" selected>Ascending Order</option> 
-                    <option value="desc">Descending Order</option> 
+                    <option value="asc" selected>Ascending Order</option>
+                    <option value="desc">Descending Order</option>
+                </select>
+
+                <label class="text-md font-bold block mt-3 mb-1" for="results_on_page">Results on page:</label>
+                <select
+                    class="w-full text-zinc-900 border rounded-lg focus:border-zinc-900 focus:outline-none focus:ring-0 bg-zinc-100 p-3"
+                    id="results_on_page" wire:model="results_on_page">
+                    <option value="10" selected>10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                    <option value="40">40</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                    <option value="150">150</option>
                 </select>
             </div>
-            <div class="my-2 flex flex-row gap-2 w-40">
+            <div class="my-5 flex flex-row gap-2 w-40">
                 <button type="submit"
                     class="mx-auto p-3 uppercase font-bold bg-emerald-500 text-xl rounded-lg mt-5 hover:bg-emerald-700 transition-colors duration-500">Search</button>
                 <button type="button" wire:click="resetSearch"
@@ -82,10 +92,37 @@
             </div>
         </form>
     </div>
-    <div class="flex flex-col mt-5 rounded-lg p-5 bg-indigo-950 max-h-96 overflow-y-scroll gap-5">
+    <div class="flex flex-col mt-5 rounded-lg p-5 bg-indigo-950 h-96 overflow-y-scroll gap-5">
         @foreach ($users as $user)
-            <livewire:admin.users-manager.user :wire:key="'user-'.$user->id" :first_name="$user->first_name" :last_name="$user->last_name" :username="$user->username" :email="$user->email"
-                :created_at="$user->created_at" />
+            <livewire:admin.users-manager.user :wire:key="'user-'.$user->id" :first_name="$user->first_name" :last_name="$user->last_name"
+                :username="$user->username" :email="$user->email" :created_at="$user->created_at" />
         @endforeach
     </div>
+    @if ($number_of_pages)
+        <div class="flex flex-row justify-center mt-5 rounded-lg p-5 bg-indigo-950 gap-5">
+            @if ($current_page - 1 > 1)
+                <button type="button" wire:click="firstPage"
+                    class="bg-indigo-700 hover:bg-indigo-800 transition-colors duration-500 text-lg py-5 rounded min-w-[80px] max-w-[200px] overflow-hidden">1</button>
+                <span class="bg-indigo-700 text-lg py-5 min-w-[80px] text-center rounded">...</span>
+            @endif
+
+            @if ($current_page - 1 >= 1)
+                <button type="button" wire:click="prevPage"
+                    class="bg-indigo-700 hover:bg-indigo-800 transition-colors duration-500 text-lg py-5 rounded min-w-[80px] max-w-[200px] overflow-hidden">{{ $current_page - 1 }}</button>
+            @endif
+
+            <span class="bg-indigo-900 text-lg py-5 min-w-[80px] text-center rounded">{{ $current_page }}</span>
+
+            @if ($current_page + 1 <= $number_of_pages)
+                <button type="button" wire:click="nextPage"
+                    class="bg-indigo-700 hover:bg-indigo-800 transition-colors duration-500 text-lg py-5 rounded min-w-[80px] max-w-[200px] overflow-hidden">{{ $current_page + 1 }}</button>
+            @endif
+
+            @if ($current_page + 1 < $number_of_pages)
+                <span class="bg-indigo-700 text-lg py-5 min-w-[80px] text-center rounded">...</span>
+                <button type="button" wire:click="lastPage"
+                    class="bg-indigo-700 hover:bg-indigo-800 transition-colors duration-500 text-lg py-5 rounded min-w-[80px] max-w-[200px] overflow-hidden">{{ $number_of_pages }}</button>
+            @endif
+        </div>
+    @endif
 </div>
