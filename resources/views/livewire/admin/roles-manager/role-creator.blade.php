@@ -1,6 +1,6 @@
 <div class="bg-slate-700 p-5 text-zinc-200 rounded-md">
     <h1 class="font-bold uppercase text-2xl"><i class="fa-solid fa-file-pen"></i> Create new role</h1>
-    <p class="font-light text-md">Create the roles that you need in a responsible manner, this is the most powerful
+    <p class="font-light text-md text-justify">Create the roles that you need in a responsible manner, this is the most powerful
         action.</p>
     <hr class="my-3">
     @if ($errors->any())

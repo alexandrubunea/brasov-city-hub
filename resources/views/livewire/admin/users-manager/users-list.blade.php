@@ -1,6 +1,6 @@
 <div class="bg-indigo-900 rounded-md p-5 text-zinc-200">
     <h1 class="text-2xl font-bold uppercase"><i class="fa-solid fa-users"></i> Registered Users</h1>
-    <p class="font-light text-md">Below is the complete list of users registered on <span
+    <p class="font-light text-md text-justify">Below is the complete list of users registered on <span
             class="text-red-500 font-bold">{{ config('app.name') }}</span>. From this interface, you can manage user
         roles or ban/unban accounts. Please note that you cannot assign roles higher than your own. However, you can
         remove your own roles, so proceed with caution.</p>
