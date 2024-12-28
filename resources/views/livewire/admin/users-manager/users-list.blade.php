@@ -2,8 +2,9 @@
     <h1 class="text-2xl font-bold uppercase"><i class="fa-solid fa-users"></i> Registered Users</h1>
     <p class="font-light text-md text-justify">This section provides a complete list of users registered on <span
             class="text-red-500 font-bold">{{ config('app.name') }}</span>. From here, you can search for users and
-        select a specific account to manage. Simply click on a user's profile to load their details into the <span class="text-red-500 font-bold">User
-        Moderator Tools</span> panel. This interface is your starting point for user management tasks, such as
+        select a specific account to manage. Simply click on a user's profile to load their details into the <span
+            class="text-red-500 font-bold">User
+            Moderator Tools</span> panel. This interface is your starting point for user management tasks, such as
         reviewing account information, updating user roles (within your permission level), or managing their account
         status. Please note that you cannot assign roles higher than your own or perform actions without the necessary
         permissions.</p>
@@ -107,7 +108,9 @@
             @if ($current_page - 1 > 1)
                 <button type="button" wire:click="firstPage"
                     class="bg-indigo-700 hover:bg-indigo-800 transition-colors duration-500 text-lg py-5 rounded min-w-[80px] max-w-[200px] overflow-hidden">1</button>
-                <span class="bg-indigo-700 text-lg py-5 min-w-[80px] text-center rounded">...</span>
+                @if ($current_page - 2 > 1)
+                    <span class="bg-indigo-700 text-lg py-5 min-w-[80px] text-center rounded">...</span>
+                @endif
             @endif
 
             @if ($current_page - 1 >= 1)
@@ -123,7 +126,9 @@
             @endif
 
             @if ($current_page + 1 < $number_of_pages)
-                <span class="bg-indigo-700 text-lg py-5 min-w-[80px] text-center rounded">...</span>
+                @if ($current_page + 2 < $number_of_pages)
+                    <span class="bg-indigo-700 text-lg py-5 min-w-[80px] text-center rounded">...</span>
+                @endif
                 <button type="button" wire:click="lastPage"
                     class="bg-indigo-700 hover:bg-indigo-800 transition-colors duration-500 text-lg py-5 rounded min-w-[80px] max-w-[200px] overflow-hidden">{{ $number_of_pages }}</button>
             @endif
