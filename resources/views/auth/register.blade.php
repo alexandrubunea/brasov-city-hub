@@ -16,7 +16,6 @@
             <p class="mt-5 font-light text-sm">If you don't have an account yet, please sign up by providing the
                 following informations to create a new account and get started.</p>
             <hr class="my-5 border-zinc-200">
-
             <form method="POST" action="{{ route('register') }}">
                 @csrf
                 <div class="mb-5">

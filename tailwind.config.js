@@ -11,6 +11,12 @@ export default {
     ],
     safelist: [
         'bg-red-500',
+        'bg-red-700',
+        'bg-emerald-700',
+        'bg-indigo-500',
+        'bg-sky-500',
+        'bg-teal-700',
+        'bg-pink-700',
     ],
     plugins: [
         forms,

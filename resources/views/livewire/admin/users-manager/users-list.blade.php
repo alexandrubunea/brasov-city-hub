@@ -112,33 +112,33 @@
     </div>
 
     @if ($number_of_pages)
-        <div class="flex flex-row justify-center mt-5 rounded-lg p-5 bg-indigo-950 gap-5">
+        <div class="flex flex-row justify-center mt-5 rounded-lg p-2 lg:p-5 bg-indigo-950 gap-5 text-xs lg:text-lg overflow-x-scroll">
             @if ($current_page - 1 > 1)
                 <button type="button" wire:click="firstPage"
-                    class="bg-indigo-700 hover:bg-indigo-800 transition-colors duration-500 text-lg py-5 rounded min-w-[80px] max-w-[200px] overflow-hidden">1</button>
+                    class="bg-indigo-700 hover:bg-indigo-800 transition-colors duration-500 py-2 lg:py-5 rounded min-w-[30px] lg:min-w-[80px] max-w-[200px] overflow-hidden">1</button>
                 @if ($current_page - 2 > 1)
-                    <span class="bg-indigo-700 text-lg py-5 min-w-[80px] text-center rounded">...</span>
+                    <span class="bg-indigo-700 py-2 lg:py-5 min-w-[30px] lg:min-w-[80px] text-center rounded">...</span>
                 @endif
             @endif
 
             @if ($current_page - 1 >= 1)
                 <button type="button" wire:click="prevPage"
-                    class="bg-indigo-700 hover:bg-indigo-800 transition-colors duration-500 text-lg py-5 rounded min-w-[80px] max-w-[200px] overflow-hidden">{{ $current_page - 1 }}</button>
+                    class="bg-indigo-700 hover:bg-indigo-800 transition-colors duration-500 py-2 lg:py-5 rounded min-w-[30px] lg:min-w-[80px] max-w-[200px] overflow-hidden">{{ $current_page - 1 }}</button>
             @endif
 
-            <span class="bg-indigo-900 text-lg py-5 min-w-[80px] text-center rounded">{{ $current_page }}</span>
+            <span class="bg-indigo-900 py-2 lg:py-5 min-w-[30px] lg:min-w-[80px] text-center rounded">{{ $current_page }}</span>
 
             @if ($current_page + 1 <= $number_of_pages)
                 <button type="button" wire:click="nextPage"
-                    class="bg-indigo-700 hover:bg-indigo-800 transition-colors duration-500 text-lg py-5 rounded min-w-[80px] max-w-[200px] overflow-hidden">{{ $current_page + 1 }}</button>
+                    class="bg-indigo-700 hover:bg-indigo-800 transition-colors duration-500 py-2 lg:py-5 rounded min-w-[30px] lg:min-w-[80px] max-w-[200px] overflow-hidden">{{ $current_page + 1 }}</button>
             @endif
 
             @if ($current_page + 1 < $number_of_pages)
                 @if ($current_page + 2 < $number_of_pages)
-                    <span class="bg-indigo-700 text-lg py-5 min-w-[80px] text-center rounded">...</span>
+                    <span class="bg-indigo-700 py-2 lg:py-5 min-w-[30px] lg:min-w-[80px] text-center rounded">...</span>
                 @endif
                 <button type="button" wire:click="lastPage"
-                    class="bg-indigo-700 hover:bg-indigo-800 transition-colors duration-500 text-lg py-5 rounded min-w-[80px] max-w-[200px] overflow-hidden">{{ $number_of_pages }}</button>
+                    class="bg-indigo-700 hover:bg-indigo-800 transition-colors duration-500 py-2 lg:py-5 rounded min-w-[30px] lg:min-w-[80px] max-w-[200px] overflow-hidden">{{ $number_of_pages }}</button>
             @endif
         </div>
     @endif

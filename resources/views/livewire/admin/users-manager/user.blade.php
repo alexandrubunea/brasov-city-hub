@@ -9,9 +9,8 @@
             Roles:
             <span class="text-red-500">
                 @foreach ($roles as $role)
-                    {{ $role['role_name'] }}
-                    @if (!$loop->last)
-                        ,
+                    {{$role['role_name']}}
+                    @if (!$loop->last), 
                     @endif
                 @endforeach
             </span>
