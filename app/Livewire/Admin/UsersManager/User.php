@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin\UsersManager;
 
 use Livewire\Component;
+use Livewire\Attributes\On;
 
 class User extends Component
 {
@@ -45,5 +46,11 @@ class User extends Component
             'roles' => $this->roles,
         ];
         $this->dispatch('loadUser', $user)->to(UserEditor::class);
+    }
+
+    #[On('refreshRoles.{user_id}')] 
+    public function refreshRoles($roles)
+    {
+        $this->roles = $roles;
     }
 }

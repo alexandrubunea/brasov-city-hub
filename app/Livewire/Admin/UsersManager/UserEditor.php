@@ -5,27 +5,53 @@ namespace App\Livewire\Admin\UsersManager;
 use Livewire\Component;
 use Livewire\Attributes\On;
 use App\Models\Role;
+use App\Models\User as UserModel;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class UserEditor extends Component
 {
-    public bool $user_loaded = false;
-    public int $user_id = 0;
-    public string $first_name = '';
-    public string $last_name = '';
-    public string $email = '';
-    public string $username = '';
-    public string $created_at = '';
-    public string $updated_at = '';
-    public array $roles = [];
-    public bool $roles_moderator = false;
-    public array $roles_color = [];
-    public $available_roles = [];
-    public string $role_to_add = '';
+    use LivewireAlert;
+
+    public bool $roles_moderator;
+    public bool $user_loaded;
+
+    public int $user_id;
+    public string $first_name;
+    public string $last_name;
+    public string $email;
+    public string $username;
+    public string $created_at;
+    public string $updated_at;
+    public array $roles;
+
+    public string $initial_first_name;
+    public string $initial_last_name;
+    public string $initial_email;
+    public string $initial_username;
+    public array $initial_roles;
+
+    public $available_roles;
+    public string $role_to_add;
+
+    protected $rules = [
+        'first_name' => 'required|string|max:64',
+        'last_name' => 'required|string|max:64',
+        'username' => 'required|string|max:64',
+        'email' => 'required|string|email|max:255|unique:users,email',
+    ];
+
+    // TODO: Display the editor only for those who have a role with users_moderator = true
+    // TODO: Make possible to remove a roles_moderator = true role from a user if that role wasn't given (pressed update) to him yet
+    // TODO: Make it responsive
 
     public function mount()
     {
+        $this->resetUserData();
+
         $this->roles_moderator = auth()->user()->hasRole('roles_moderator');
-        $this->available_roles = Role::orderBy('role_name', 'asc')->get()->keyBy('id');
+
+        $this->available_roles = Role::orderBy('role_name', 'asc')->get()->toArray();
+        $this->available_roles = array_column($this->available_roles, null, 'id');
     }
 
     public function render()
@@ -51,7 +77,11 @@ class UserEditor extends Component
         // This allows O(1) time complexity for checking if a user already has a specific role.
         $this->roles = array_column($user['roles'], null, 'id');
 
-        $this->generateRolesColor();
+        $this->initial_first_name = $this->first_name;
+        $this->initial_last_name = $this->last_name;
+        $this->initial_email = $this->email;
+        $this->initial_username = $this->username;
+        $this->initial_roles = $this->roles;
 
         $this->user_loaded = true;
     }
@@ -66,6 +96,13 @@ class UserEditor extends Component
         $this->created_at = '';
         $this->updated_at = '';
         $this->roles = [];
+
+        $this->initial_first_name = '';
+        $this->initial_last_name = '';
+        $this->initial_username = '';
+        $this->initial_email = '';
+        $this->initial_roles = [];
+
         $this->role_to_add = '';
     }
 
@@ -83,28 +120,88 @@ class UserEditor extends Component
         if (isset($this->roles[$this->role_to_add]))
             return;
 
-        array_push($this->roles, $this->available_roles[$this->role_to_add]);
-        $this->generateRolesColor();
+        $this->roles[$this->role_to_add] = $this->available_roles[$this->role_to_add];
     }
 
     public function removeRole(int $role_id)
     {
-        // To be implemented... 
+        if (!isset($this->roles[$role_id]))
+            return;
+
+        if ($this->roles[$role_id]['roles_moderator'])
+            return;
+
+        unset($this->roles[$role_id]);
     }
 
-    public function updateUser() 
+    public function updateUser()
     {
-        // To be implemented...
-    }
+        $rules = $this->rules;
+        if ($this->first_name === $this->initial_first_name)
+            unset($rules['first_name']);
+        if ($this->last_name === $this->initial_last_name)
+            unset($rules['last_name']);
+        if ($this->username === $this->initial_username)
+            unset($rules['username']);
+        if ($this->email === $this->initial_email)
+            unset($rules['email']);
 
-    private function generateRolesColor()
-    {
-        // TODO: Make this to expand & shrink based on $this->roles size.
-        if (sizeof($this->roles)) {
-            // Note: if more colors are added, add them to the safeList in tailwind.config.js too!
-            $colors = ['bg-red-700', 'bg-emerald-700', 'bg-indigo-500', 'bg-sky-500', 'bg-teal-700', 'bg-pink-700'];
-            $random = array_rand($colors, sizeof($this->roles));
-            $this->roles_color = array_map(fn($index) => $colors[$index], (array) $random);
+        $user = UserModel::find($this->user_id);
+        if ($user == null) {
+            $this->alert(
+                'error',
+                'Operation Failed',
+                [
+                    'toast' => false,
+                    'position' => 'center',
+                    'timer' => 5000,
+                    'text' => 'This user no longer exists in the database.',
+                    'showConfirmButton' => true,
+                ]
+            );
         }
+
+        $roles_to_add = [];
+        foreach ($this->roles as $role) {
+            if (!isset($this->initial_roles[$role['id']]))
+                $roles_to_add[] = $role['id'];
+        }
+
+        $roles_to_remove = [];
+        foreach ($this->initial_roles as $role) {
+            if (!isset($this->roles[$role['id']]))
+                $roles_to_remove[] = $role['id'];
+        }
+
+        $roles_modified = false;
+        if (sizeof($roles_to_add)) {
+            $user->roles()->attach($roles_to_add);
+            $roles_modified = true;
+        }
+        if (sizeof($roles_to_remove)) {
+            $user->roles()->detach($roles_to_remove);
+            $roles_modified = true;
+        }
+
+        if (sizeof($rules)) {
+            $validated = $this->validate($rules);
+            $user->update($validated);
+            $this->dispatch('refreshList')->to(UsersList::class);
+        }
+
+
+        if ($roles_modified)
+            $this->dispatch("refreshRoles.{$this->user_id}", roles: $this->roles)->to(User::class);
+
+        $this->alert(
+            'success',
+            'Successful Operation',
+            [
+                'text' => 'The role has been updated.',
+                'toast' => false,
+                'position' => 'center',
+                'timer' => 2000,
+            ]
+        );
     }
 }

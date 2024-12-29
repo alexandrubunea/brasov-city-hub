@@ -1,4 +1,4 @@
-            <div class="bg-sky-950 rounded-md p-5 text-zinc-200">
+<div class="bg-sky-950 rounded-md p-5 text-zinc-200">
     <h1 class="text-2xl font-bold uppercase"><i class="fa-solid fa-user-shield"></i> User Moderator Tools</h1>
     <p class="font-light text-md text-justify">This panel is where you manage the details of the user selected from the
         <span class="text-red-500 font-bold">Registered Users</span> list. You can edit their first name, last name,
@@ -10,8 +10,8 @@
     <hr class="my-3">
     @if ($user_loaded)
         <form class="bg-sky-900 rounded-lg p-5" wire:submit.prevent="updateUser">
-            <h1 class="text-xl font-bold">{{ $first_name . ' ' . $last_name }} (<span
-                    class="text-red-500 font-bold">{{ $username }}</span>)</h1>
+            <h1 class="text-xl font-bold">{{ $initial_first_name . ' ' . $initial_last_name }} (<span
+                    class="text-red-500 font-bold">{{ $initial_username }}</span>)</h1>
             <p class="font-light text-xs">
                 <i class="fa-solid fa-clock"></i> Created on: {{ $created_at }}<br>
                 <i class="fa-solid fa-rotate"></i> Last updated: {{ $updated_at }}<br>
@@ -39,16 +39,11 @@
                 @if ($roles_moderator)
                     <p class="text-md font-bold mt-10 mb-1">Roles:</p>
                     <div class="flex flex-row gap-2">
-                        @php 
-                            $count = 0; 
-                        @endphp
                         @forelse ($roles as $role)
                             <span
-                                class="p-3 font-bold text-sm rounded @if ($role['roles_moderator']) hover:cursor-not-allowed @else hover:cursor-pointer @endif {{ $roles_color[$count] }}"><i
+                                class="p-3 font-bold text-sm rounded @if ($role['roles_moderator']) cursor-not-allowed @else hover:cursor-pointer @endif bg-zinc-900"
+                                wire:click="removeRole({{ $role['id'] }})"><i
                                     class="fa-solid fa-circle-xmark mr-3"></i>{{ $role['role_name'] }}</span>
-                        @php
-                            $count += 1;
-                        @endphp
                         @empty
                             <span class="p-3 font-bold text-sm rounded bg-zinc-900">No roles...</span>
                         @endforelse

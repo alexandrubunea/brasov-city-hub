@@ -5,6 +5,7 @@ namespace App\Livewire\Admin\UsersManager;
 use App\Models\Role;
 use Livewire\Component;
 use App\Models\User as UserModel;
+use Livewire\Attributes\On;
 
 class UsersList extends Component
 {
@@ -68,6 +69,12 @@ class UsersList extends Component
         $start = $this->results_on_page * ($this->current_page - 1);
         $this->users = array_slice($this->db_users, $start, $this->results_on_page);
     }
+
+    #[On('refreshList')]
+    public function refreshList()
+    {
+        $this->loadUsers();
+    } 
 
     public function searchUser()
     {
