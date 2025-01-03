@@ -13,6 +13,7 @@ class UserEditor extends Component
     use LivewireAlert;
 
     public bool $roles_moderator;
+    public bool $users_moderator;
     public bool $user_loaded;
 
     public int $user_id;
@@ -49,6 +50,7 @@ class UserEditor extends Component
         $this->resetUserData();
 
         $this->roles_moderator = auth()->user()->hasRole('roles_moderator');
+        $this->users_moderator = auth()->user()->hasRole('users_moderator');
 
         $this->available_roles = Role::orderBy('role_name', 'asc')->get()->toArray();
         $this->available_roles = array_column($this->available_roles, null, 'id');
@@ -137,6 +139,17 @@ class UserEditor extends Component
     public function updateUser()
     {
         $rules = $this->rules;
+
+        if ($this->users_moderator == false) {
+            $this->first_name = $this->initial_first_name;
+            $this->last_name = $this->initial_last_name;
+            $this->email = $this->initial_email;
+            $this->username = $this->initial_username;
+        }
+
+        if ($this->roles_moderator == false)
+            $this->roles = $this->initial_roles;
+
         if ($this->first_name === $this->initial_first_name)
             unset($rules['first_name']);
         if ($this->last_name === $this->initial_last_name)
@@ -159,6 +172,8 @@ class UserEditor extends Component
                     'showConfirmButton' => true,
                 ]
             );
+
+            return;
         }
 
         $roles_to_add = [];
@@ -173,25 +188,25 @@ class UserEditor extends Component
                 $roles_to_remove[] = $role['id'];
         }
 
-        $roles_modified = false;
-        if (sizeof($roles_to_add)) {
+        if (sizeof($roles_to_add))
             $user->roles()->attach($roles_to_add);
-            $roles_modified = true;
-        }
-        if (sizeof($roles_to_remove)) {
+        if (sizeof($roles_to_remove))
             $user->roles()->detach($roles_to_remove);
-            $roles_modified = true;
-        }
 
         if (sizeof($rules)) {
             $validated = $this->validate($rules);
             $user->update($validated);
-            $this->dispatch('refreshList')->to(UsersList::class);
         }
 
+        $user_data = [
+            'first_name' => $this->first_name,
+            'last_name' => $this->last_name,
+            'username' => $this->username,
+            'email' => $this->email,
+            'roles' => $this->roles
+        ];
 
-        if ($roles_modified)
-            $this->dispatch("refreshRoles.{$this->user_id}", roles: $this->roles)->to(User::class);
+        $this->dispatch("refreshUser.{$this->user_id}", user: $user_data)->to(User::class);
 
         $this->alert(
             'success',
