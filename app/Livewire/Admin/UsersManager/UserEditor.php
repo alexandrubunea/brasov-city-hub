@@ -24,6 +24,7 @@ class UserEditor extends Component
     public string $created_at;
     public string $updated_at;
     public array $roles;
+    public bool $banned;
 
     public string $initial_first_name;
     public string $initial_last_name;
@@ -33,6 +34,8 @@ class UserEditor extends Component
 
     public $available_roles;
     public string $role_to_add;
+
+    public bool $can_be_modified;
 
     protected $rules = [
         'first_name' => 'required|string|max:64',
@@ -44,10 +47,7 @@ class UserEditor extends Component
     public function mount()
     {
         $this->resetUserData();
-
-        $this->roles_moderator = auth()->user()->hasRole('roles_moderator');
-        $this->users_moderator = auth()->user()->hasRole('users_moderator');
-
+        $this->user_loaded = false;
         $this->available_roles = Role::orderBy('role_name', 'asc')->get()->toArray();
         $this->available_roles = array_column($this->available_roles, null, 'id');
     }
@@ -68,18 +68,27 @@ class UserEditor extends Component
         $this->last_name = $user['last_name'];
         $this->email = $user['email'];
         $this->username = $user['username'];
+        $this->banned = $user['banned'];
         $this->created_at = $user['created_at'];
         $this->updated_at = $user['updated_at'];
 
         // Using array_column is O(n) but runs only once, making it more efficient than repeatedly checking with a loop in O(n).
         // This allows O(1) time complexity for checking if a user already has a specific role.
         $this->roles = array_column($user['roles'], null, 'id');
+        
+        $this->updateInitialValues();
+        if ($this->user_id == auth()->user()->id) {
+            $this->user_loaded = true;
+            $this->can_be_modified = true;
+            return;
+        }
 
-        $this->initial_first_name = $this->first_name;
-        $this->initial_last_name = $this->last_name;
-        $this->initial_email = $this->email;
-        $this->initial_username = $this->username;
-        $this->initial_roles = $this->roles;
+        $this->can_be_modified = true;
+        foreach($this->roles as $role) {
+            if ($role['roles_moderator'] == 1) {
+                $this->can_be_modified = false;
+            }
+        }
 
         $this->user_loaded = true;
     }
@@ -126,25 +135,50 @@ class UserEditor extends Component
         if (!isset($this->roles[$role_id]))
             return;
 
-        if (isset($this->initial_roles[$role_id]) && $this->initial_roles[$role_id]['roles_moderator'])
+        unset($this->roles[$role_id]);
+    }
+
+    public function changeBannedStatus()
+    {
+        $this->banned = !$this->banned;
+        $user = UserModel::find($this->user_id);
+        $user->banned = $this->banned;
+        $user->save();
+        $this->dispatch("refreshUser.{$this->user_id}", user: ['banned' => $this->banned])->to(User::class);
+    }
+
+    public function clearAllRoles()
+    {
+        if (sizeof($this->roles) == 0)
+            return;
+        
+        if ($this->can_be_modified == false)
             return;
 
-        unset($this->roles[$role_id]);
+        $this->roles = [];
+
+        $user = UserModel::find($this->user_id);
+        $this->updateRoles($user);
+
+        $this->dispatch("refreshUser.{$this->user_id}", user: ['roles' => $this->roles])->to(User::class);
+        $this->alert(
+            'success',
+            'Successful Operation',
+            [
+                'text' => 'All roles have been removed from this user.',
+                'toast' => false,
+                'position' => 'center',
+                'timer' => 2000,
+            ]
+        );
     }
 
     public function updateUser()
     {
+        if ($this->can_be_modified == false)
+            return;
+
         $rules = $this->rules;
-
-        if ($this->users_moderator == false) {
-            $this->first_name = $this->initial_first_name;
-            $this->last_name = $this->initial_last_name;
-            $this->email = $this->initial_email;
-            $this->username = $this->initial_username;
-        }
-
-        if ($this->roles_moderator == false)
-            $this->roles = $this->initial_roles;
 
         if ($this->first_name === $this->initial_first_name)
             unset($rules['first_name']);
@@ -172,6 +206,42 @@ class UserEditor extends Component
             return;
         }
 
+        $this->updateRoles($user);
+
+        if (sizeof($rules)) {
+            $validated = $this->validate($rules);
+            $user->update($validated);
+        }
+
+        $user_data = [
+            'first_name' => $this->first_name,
+            'last_name' => $this->last_name,
+            'username' => $this->username,
+            'email' => $this->email,
+            'roles' => $this->roles
+        ];
+        
+        $this->updateInitialValues();
+
+        $this->dispatch("refreshUser.{$this->user_id}", user: $user_data)->to(User::class);
+
+        $this->alert(
+            'success',
+            'Successful Operation',
+            [
+                'text' => 'The user have been updated.',
+                'toast' => false,
+                'position' => 'center',
+                'timer' => 2000,
+            ]
+        );
+    }
+
+    protected function updateRoles(UserModel $user)
+    {
+        if ($this->can_be_modified == false)
+            return;
+
         $roles_to_add = [];
         foreach ($this->roles as $role) {
             if (!isset($this->initial_roles[$role['id']]))
@@ -188,31 +258,14 @@ class UserEditor extends Component
             $user->roles()->attach($roles_to_add);
         if (sizeof($roles_to_remove))
             $user->roles()->detach($roles_to_remove);
+    }
 
-        if (sizeof($rules)) {
-            $validated = $this->validate($rules);
-            $user->update($validated);
-        }
-
-        $user_data = [
-            'first_name' => $this->first_name,
-            'last_name' => $this->last_name,
-            'username' => $this->username,
-            'email' => $this->email,
-            'roles' => $this->roles
-        ];
-
-        $this->dispatch("refreshUser.{$this->user_id}", user: $user_data)->to(User::class);
-
-        $this->alert(
-            'success',
-            'Successful Operation',
-            [
-                'text' => 'The role has been updated.',
-                'toast' => false,
-                'position' => 'center',
-                'timer' => 2000,
-            ]
-        );
+    protected function updateInitialValues()
+    {
+        $this->initial_first_name = $this->first_name;
+        $this->initial_last_name = $this->last_name;
+        $this->initial_email = $this->email;
+        $this->initial_username = $this->username;
+        $this->initial_roles = $this->roles;
     }
 }

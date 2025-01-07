@@ -62,7 +62,7 @@
                     id="order_by" wire:model="order_by">
                     <option value="created_at" selected>Join Date</option>
                     <option value="first_name">First Name</option>
-                    <option value="last_name">Last Date</option>
+                    <option value="last_name">Last Name</option>
                     <option value="username">Username</option>
                     <option value="email">E-mail</option>
                 </select>
@@ -101,7 +101,7 @@
             <div class="flex flex-col gap-5">
                 @foreach ($users as $user)
                     <livewire:admin.users-manager.user :wire:key="'user-'.$user['id']" :user_id="$user['id']"
-                        :first_name="$user['first_name']" :last_name="$user['last_name']" :username="$user['username']" :email="$user['email']" :roles="$user['roles']"
+                        :first_name="$user['first_name']" :last_name="$user['last_name']" :username="$user['username']" :email="$user['email']" :banned="$user['banned']" :roles="$user['roles']"
                         :created_at="$user['created_at']" :updated_at="$user['updated_at']" />
                 @endforeach
             </div>
