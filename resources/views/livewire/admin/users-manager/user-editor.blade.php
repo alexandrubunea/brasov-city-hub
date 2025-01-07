@@ -43,7 +43,7 @@
                 <div class="flex flex-row gap-2">
                     @forelse ($roles as $role)
                         <span
-                            class="p-3 font-bold text-sm rounded @if ($role['roles_moderator']) cursor-not-allowed @else hover:cursor-pointer @endif bg-zinc-900"
+                            class="p-3 font-bold text-sm rounded @if (isset($initial_roles[$role['id']]) && $initial_roles[$role['id']]['roles_moderator']) cursor-not-allowed @else hover:cursor-pointer @endif bg-zinc-900"
                             wire:click="removeRole({{ $role['id'] }})"><i
                                 class="fa-solid fa-circle-xmark mr-3"></i>{{ $role['role_name'] }}</span>
                     @empty

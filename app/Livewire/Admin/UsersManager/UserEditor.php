@@ -126,7 +126,7 @@ class UserEditor extends Component
         if (!isset($this->roles[$role_id]))
             return;
 
-        if ($this->roles[$role_id]['roles_moderator'])
+        if (isset($this->initial_roles[$role_id]) && $this->initial_roles[$role_id]['roles_moderator'])
             return;
 
         unset($this->roles[$role_id]);
