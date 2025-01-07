@@ -40,10 +40,6 @@ class UserEditor extends Component
         'email' => 'required|string|email|max:255|unique:users,email',
     ];
 
-    // TODO: Display the editor only for those who have a role with users_moderator = true
-    // TODO: Make possible to remove a roles_moderator = true role from a user if that role wasn't given (pressed update) to him yet
-    // TODO: Make it responsive
-
     public function mount()
     {
         $this->resetUserData();

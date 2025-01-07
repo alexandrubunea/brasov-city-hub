@@ -1,4 +1,4 @@
-<div class="bg-sky-950 rounded-md p-5 text-zinc-200">
+<div class="bg-sky-950 rounded-md p-5 text-zinc-200 min-h-96">
     <h1 class="text-2xl font-bold uppercase"><i class="fa-solid fa-user-shield"></i> User Moderator Tools</h1>
     <p class="font-light text-md text-justify">This panel is where you manage the details of the user selected from the
         <span class="text-red-500 font-bold">Registered Users</span> list. You can edit their first name, last name,
