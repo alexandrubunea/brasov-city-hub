@@ -10,6 +10,9 @@ class NavigationBar extends Component
     public string $active_tab;
     public array $tabs;
 
+    public bool $is_users_moderator;
+    public bool $is_roles_moderator;
+
     public function mount(string $active_tab)
     {
         $this->$active_tab = $active_tab;
@@ -41,6 +44,12 @@ class NavigationBar extends Component
                     'active' => strcmp('profile', $active_tab) == 0
                 ]
             ];
+            
+            if (Auth::user()->hasRole('users_moderator'))
+                $this->is_users_moderator = true;
+            if (Auth::user()->hasRole('roles_moderator'))
+                $this->is_roles_moderator = true;
+
         } else {
             $conditional_tabs = [
                 'Login' => [
@@ -51,7 +60,11 @@ class NavigationBar extends Component
                     'route' => 'register',
                     'active' => strcmp('register', $active_tab) == 0
                 ]
-            ];
+
+              ];
+
+            $this->is_roles_moderator = false;
+            $this->is_users_moderator = false;
         }
 
         $this->tabs = array_merge($this->tabs, $conditional_tabs);

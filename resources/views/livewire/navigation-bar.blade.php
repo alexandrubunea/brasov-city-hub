@@ -39,6 +39,37 @@
                         @endif
                     @endforeach
                     @if (Auth::check())
+                        @if ($is_roles_moderator || $is_users_moderator)
+                            <div x-data="{ open_manage_menu: false }">
+                                <li @click="open_manage_menu = !open_manage_menu"
+                                    class="w-full border border-transparent hover:border-zinc-200 hover:bg-indigo-700 hover:text-zinc-200 rounded-lg py-3 pl-3 transition-all duration-500 lg:pr-3">
+                                    <button class="whitespace-nowrap pr-[100%] lg:pr-0" type="submit">
+                                        Manage
+                                    </button>
+                                </li>
+                                <div x-show="open_manage_menu" @click.away="open_manage_menu = false"
+                                    class="lg:absolute rounded-lg shadow-sm mt-2 z-10 bg-slate-900 lg:bg-slate-800 p-1.5 outline-none border border-zinc-300"
+                                    x-transition:enter="transition ease-out duration-200"
+                                    x-transition:enter-start="opacity-0 transform -translate-y-4"
+                                    x-transition:enter-end="opacity-100 transform translate-y-0"
+                                    x-transition:leave="transition ease-in duration-150"
+                                    x-transition:leave-start="opacity-100 transform translate-y-0"
+                                    x-transition:leave-end="opacity-0 transform -translate-y-4">
+                                    @if ($is_users_moderator)
+                                        <a href="{{ route('users.view') }}"
+                                            class="px-2 lg:py-1.5 py-2 w-full flex items-center rounded-md transition-colors text-left hover:bg-indigo-700 focus-visible:bg-indigo-700 border border-transparent hover:border-zinc-200">
+                                            Manage Users
+                                        </a>
+                                    @endif
+                                    @if ($is_roles_moderator)
+                                        <a href="{{ route('roles.view') }}"
+                                            class="px-2 lg:py-1.5 py-2 w-full flex items-center rounded-md transition-colors text-left hover:bg-indigo-700 focus-visible:bg-indigo-700 border border-transparent hover:border-zinc-200">
+                                            Manage Roles
+                                        </a>
+                                    @endif
+                                </div>
+                            </div>
+                        @endif
                         <li
                             class="w-full border border-transparent hover:border-zinc-200 hover:bg-indigo-700 hover:text-zinc-200 rounded-lg py-3 pl-3 transition-all duration-500 lg:pr-3">
                             <form method="POST" action="{{ route('logout') }}">
