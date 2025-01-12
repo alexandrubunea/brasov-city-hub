@@ -14,9 +14,13 @@ export default {
         'bg-red-700',
         'bg-emerald-700',
         'bg-indigo-500',
+        'bg-indigo-600',
+        'bg-indigo-700',
+        'bg-indigo-900',
         'bg-sky-500',
         'bg-teal-700',
         'bg-pink-700',
+        'bg-rose-500',
     ],
     plugins: [
         forms,

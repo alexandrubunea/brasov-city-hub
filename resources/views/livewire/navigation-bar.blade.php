@@ -42,7 +42,7 @@
                         @if ($is_roles_moderator || $is_users_moderator)
                             <div x-data="{ open_manage_menu: false }">
                                 <li @click="open_manage_menu = !open_manage_menu"
-                                    class="w-full border border-transparent hover:border-zinc-200 hover:bg-indigo-700 hover:text-zinc-200 rounded-lg py-3 pl-3 transition-all duration-500 lg:pr-3">
+                                    class="@if ($active_tab == 'manage') w-full border-b-4 border-b-indigo-700 pb-1 pt-3 pl-3 rounded border-t border-x border-t-transparent border-x-transparent hover:border-indigo-700 hover:border-b-zinc-200 hover:rounded-lg hover:bg-indigo-700 transition-all duration-500 lg:pr-3 @else w-full border border-transparent hover:border-zinc-200 hover:bg-indigo-700 hover:text-zinc-200 rounded-lg py-3 pl-3 transition-all duration-500 lg:pr-3 @endif">
                                     <button class="whitespace-nowrap pr-[100%] lg:pr-0" type="submit">
                                         Manage
                                     </button>
