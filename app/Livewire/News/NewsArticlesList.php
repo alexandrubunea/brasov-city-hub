@@ -11,16 +11,23 @@ use Carbon\Carbon;
 class NewsArticlesList extends Component
 {
     public string $sort;
+    public string $order;
     public bool $is_news_creator;
     public $news_articles_db;
     public $news_articles;
+    public string $search_bar;
+
+    public int $current_page = 1;
+    public int $results_on_page = 10;
+    public int $number_of_pages;
 
     public function mount()
     {
-        $this->sort = 'hotness';
-        $this->is_news_creator = auth()->user()->hasRole('news_creator');
+        $this->sort = 'hot';
+        $this->search_bar = '';
+        $this->order = 'desc';
+        $this->is_news_creator = auth()->check() && auth()->user()->hasRole('news_creator');
         $this->loadArticles();
-        $this->news_articles = $this->news_articles_db;
     }
 
     public function render()
@@ -28,9 +35,80 @@ class NewsArticlesList extends Component
         return view('livewire.news.news-articles-list');
     }
 
+    public function submitSearch()
+    {
+        $this->loadArticles();
+    }
+
+    public function firstPage()
+    {
+        $this->current_page = 1;
+        $this->loadArticlesPage();
+    }
+
+    public function lastPage()
+    {
+        $this->current_page = $this->number_of_pages;
+        $this->loadArticlesPage();
+    }
+
+    public function nextPage()
+    {
+        if ($this->current_page >= $this->number_of_pages)
+            return;
+
+        $this->current_page += 1;
+        $this->loadArticlesPage();
+    }
+
+    public function prevPage()
+    {
+        if ($this->current_page <= 1)
+            return;
+
+        $this->current_page -= 1;
+        $this->loadArticlesPage();
+    }
+
+    protected function loadArticlesPage()
+    {
+        $this->number_of_pages = ceil(count($this->news_articles_db) / $this->results_on_page);
+        $start = $this->results_on_page * ($this->current_page - 1);
+        $this->news_articles = array_slice($this->news_articles_db, $start, $this->results_on_page);
+    }
+
     protected function loadArticles()
     {
-        $articles = NewsArticleModel::with(['user', 'likes'])
+        $query = NewsArticleModel::query();
+
+        \Log::info($this->search_bar . ' | ' . $this->sort . ' | ' . $this->order);
+
+        if (!empty($this->search_bar))
+            $query->whereRaw('LOWER(title) LIKE ? ', ['%' . strtolower($this->search_bar) . '%']);
+
+        switch ($this->sort) {
+            case 'hot':
+                $HOT_CONST = 1.0;
+                $query->leftJoin('news_likes', 'news_likes.news_article_id', '=', 'news_articles.id')
+                    ->selectRaw('news_articles.*, 
+                               COUNT(news_likes.id) AS likes_count, 
+                               (COUNT(news_likes.id) - (EXTRACT(day FROM (CURRENT_DATE - news_articles.created_at)) * ?)) AS hotness', [$HOT_CONST])
+                    ->groupBy('news_articles.id')
+                    ->orderBy('hotness', $this->order);
+                break;
+
+            case 'likes':
+                $query->leftJoin('news_likes', 'news_likes.news_article_id', '=', 'news_articles.id')
+                    ->selectRaw('news_articles.*, COUNT(news_likes.id) AS likes_count')
+                    ->groupBy('news_articles.id')
+                    ->orderBy('likes_count', $this->order);
+
+            case 'recent':
+                $query->orderBy('created_at', $this->order);
+                break;
+        }
+
+        $articles = $query->with(['user', 'likes'])
             ->get()
             ->map(function ($article) {
                 return [
@@ -39,10 +117,13 @@ class NewsArticlesList extends Component
                     'content' => Str::limit($article->content, 1000),
                     'user_name' => $article->user->first_name . ' ' . $article->user->last_name,
                     'likes_count' => $article->likes->count(),
-                    'created_on' => Carbon::parse($article->created_at)->format('d F Y H:i'),
-                    'updated_on' => Carbon::parse($article->updated_at)->format('d F Y H:i'),
+                    'created_at' => Carbon::parse($article->created_at)->format('d F Y H:i'),
+                    'updated_at' => Carbon::parse($article->updated_at)->format('d F Y H:i'),
                 ];
-            });
+            })
+            ->toArray();
+
         $this->news_articles_db = $articles;
+        $this->loadArticlesPage();
     }
 }
