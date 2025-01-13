@@ -10,6 +10,7 @@
 
 <body class="bg-slate-950">
     <livewire:NavigationBar active_tab="news"/>
+    <livewire:News.CreateOrEditArticle mode="create"/>
 </body>
 
 </html>

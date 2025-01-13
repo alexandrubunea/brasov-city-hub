@@ -81,8 +81,6 @@ class NewsArticlesList extends Component
     {
         $query = NewsArticleModel::query();
 
-        \Log::info($this->search_bar . ' | ' . $this->sort . ' | ' . $this->order);
-
         if (!empty($this->search_bar))
             $query->whereRaw('LOWER(title) LIKE ? ', ['%' . strtolower($this->search_bar) . '%']);
 

@@ -18,7 +18,7 @@ class NewsArticle extends Component
     {
         $this->id = $id;
         $this->title = $title;
-        $this->content = $content;
+        $this->content = strip_tags($content);
         $this->author = $author;
         $this->likes = $likes;
         $this->created_on = $created_on;

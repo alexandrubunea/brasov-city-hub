@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RichTextEditorController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'index');
@@ -19,5 +20,10 @@ Route::middleware(['auth'])->group(function () {
     // News Creator Group
     Route::middleware(['ensureUserHasRole:news_creator'])->group(function() {
         Route::view('news/create-article', 'news.create-article')->name('news.create');
+    });
+
+    // Editor Access
+    Route::middleware(['ensureUserHasRole:news_creator,news_editor'])->group(function () {
+        Route::post('/tinymce/upload', [RichTextEditorController::class, 'upload'])->name('rich-text-editor.upload');
     });
 });
