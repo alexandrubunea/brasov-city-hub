@@ -78,13 +78,13 @@
             <p class="text-md font-light">One of your roles grants you the ability to create news content. Please press
                 the
                 button below if you wish to proceed.</p>
-            <a href="route('news.create')"
+            <a href="{{ route('news.create') }}"
                 class="bg-indigo-400 hover:bg-indigo-600 transition-colors duration-500 p-5 rounded-lg max-w-64 font-bold text-center"><i
                     class="fa-regular fa-square-plus"></i> Create News Article</a>
         </div>
     @endif
 
-    <div class="bg-indigo-900 p-3 mt-3 rounded-md flex flex-col gap-5">
+    <div class="bg-indigo-900 p-3 mt-3 rounded-md flex flex-col items-center gap-5">
         @forelse ($news_articles as $news_article)
             <livewire:News.NewsArticle :wire:key="'news-article-'.$news_article['id']" :id="$news_article['id']"
                 :title="$news_article['title']" :content="$news_article['content']" :author="$news_article['user_name']" :likes="$news_article['likes_count']" :created_on="$news_article['created_at']"
