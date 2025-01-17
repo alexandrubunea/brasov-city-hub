@@ -1,4 +1,4 @@
-<div class="bg-indigo-500 p-5 rounded-lg text-zinc-200 w-full">
+<div class="bg-indigo-500 p-5 rounded-lg text-zinc-200 my-10 mx-auto w-[95%]">
     <h1 class="font-bold text-2xl"><i class="fa-solid fa-newspaper mr-5"></i>The compilation of news available on our
         website</h1>
     <hr class="my-3">

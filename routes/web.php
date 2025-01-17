@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 Route::view('/', 'index');
 
 Route::view('news', 'news.news')->name('news.view');
+Route::view('news/article/{id}', 'news.article')->name('news.article');
 
 Route::middleware(['auth'])->group(function () {
     // Admin Group
@@ -26,4 +27,8 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['ensureUserHasRole:news_creator,news_editor'])->group(function () {
         Route::post('/tinymce/upload', [RichTextEditorController::class, 'upload'])->name('rich-text-editor.upload');
     });
+    Route::middleware(['ensureUserHasRole:news_creator,news_editor'])->group(function () {
+        Route::view('news/edit-article/{id}', 'news.edit-article')->name('news.edit');
+    });
 });
+

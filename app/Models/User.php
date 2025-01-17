@@ -17,6 +17,11 @@ class User extends Authenticatable
         'password'
     ];
 
+    public function liked_articles()
+    {
+        return $this->hasMany(NewsLikes::class);
+    }
+
     public function newsArticles()
     {
         return $this->hasMany(NewsArticle::class);
