@@ -112,9 +112,9 @@ class NewsArticlesList extends Component
                 return [
                     'id' => $article->id,
                     'title' => $article->title,
-                    'content' => Str::limit($article->content, 1000),
-                    'user_name' => $article->user->first_name . ' ' . $article->user->last_name,
-                    'likes_count' => $article->likes->count(),
+                    'content' => Str::limit(preg_replace('/\s+/', ' ', html_entity_decode(strip_tags($article->content))), 1000),
+                    'author' => $article->user->first_name . ' ' . $article->user->last_name,
+                    'likes' => $article->likes->count(),
                     'created_at' => Carbon::parse($article->created_at)->format('d F Y H:i'),
                     'updated_at' => Carbon::parse($article->updated_at)->format('d F Y H:i'),
                 ];

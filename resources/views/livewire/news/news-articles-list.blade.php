@@ -86,9 +86,7 @@
 
     <div class="bg-indigo-900 p-3 mt-3 rounded-md flex flex-col items-center gap-5">
         @forelse ($news_articles as $news_article)
-            <livewire:News.NewsArticle :wire:key="'news-article-'.$news_article['id']" :id="$news_article['id']"
-                :title="$news_article['title']" :content="$news_article['content']" :author="$news_article['user_name']" :likes="$news_article['likes_count']" :created_on="$news_article['created_at']"
-                :updated_on="$news_article['updated_at']" />
+            <livewire:News.NewsArticle :wire:key="'news-article-'.$news_article['id']" :news_article="$news_article" />
         @empty
             <h1 class="my-5 text-xl font-bold text-zinc-500 uppercase">No news articles found.</h1>
         @endforelse

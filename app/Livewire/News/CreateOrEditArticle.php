@@ -48,15 +48,12 @@ class CreateOrEditArticle extends Component
 
     protected function createArticle()
     {
-        $this->validate([
+        $validator = $this->validate([
             'title' => 'required|min:3',
             'content' => 'required|min:3',
         ]);
 
-        auth()->user()->newsArticles()->create([
-            'title' => $this->title,
-            'content' => $this->content,
-        ]);
+        auth()->user()->newsArticles()->create($validator);
 
         return redirect()->to(route('news.view'));
     }
