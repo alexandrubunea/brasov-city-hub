@@ -3,7 +3,6 @@
         @if ($mode == 'create')
             Create a new article
         @else
-            ($mode == 'edit')
             Editing exiting article...
         @endif
     </h1>
@@ -23,7 +22,11 @@
             id="title" wire:model="title" type="text" placeholder="Title of the article..." required>
         <div class="my-5">
             <p class="text-md font-bold block mb-1">Content:</p>
-            <livewire:RichTextEditor />
+            @if ($mode == 'edit')
+                <livewire:RichTextEditor :initialContent="$content" />
+            @else
+                <livewire:RichTextEditor />
+            @endif
         </div>
         <div class="flex justify-center">
             <button type="submit"
