@@ -5,6 +5,7 @@ namespace App\Livewire\Admin\UsersManager;
 use App\Models\Role;
 use Livewire\Component;
 use App\Models\User as UserModel;
+use Carbon\Carbon;
 
 class UsersList extends Component
 {
@@ -53,11 +54,25 @@ class UsersList extends Component
                 $q->where('role_name', $this->role);
             });
 
-        $this->db_users = $query
-            ->with('roles')
+        $this->db_users = $query->with('roles')
             ->orderBy($this->order_by, $this->sort_by)
             ->get()
-            ->toArray();
+            ->map(function ($user) {
+                return [
+                    'id' => $user->id,
+                    'username' => $user->username,
+                    'first_name' => $user->first_name,
+                    'last_name' => $user->last_name,
+                    'email' => $user->email,
+                    'roles' => $user->roles()->get()->toArray(),
+                    'banned' => $user->banned,
+                    'created_at' => Carbon::parse($user->created_at)->format('d F Y H:i'),
+                    'updated_at' => Carbon::parse($user->updated_at)->format('d F Y H:i') 
+                ];
+            })
+            ->toArray(); 
+
+        $this->current_page = 1;
         $this->loadUsersPage();
     }
 

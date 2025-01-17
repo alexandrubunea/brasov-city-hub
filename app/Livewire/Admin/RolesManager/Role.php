@@ -10,7 +10,9 @@ class Role extends Component
 {
     use LivewireAlert;
 
-    public int $role_id;
+    public RoleModel $role;
+
+    public string $initial_role_name;
     public string $role_name;
     public bool $news_creator;
     public bool $news_moderator;
@@ -18,8 +20,6 @@ class Role extends Component
     public bool $discussions_moderator;
     public bool $users_moderator;
     public bool $roles_moderator;
-
-    public string $initial_role_name;
 
     protected $rules = [
         'role_name' => 'required|uppercase|unique:roles,role_name|max:32',
@@ -35,18 +35,18 @@ class Role extends Component
         'roles_moderator' => 'boolean'
     ];
 
-    public function mount(int $role_id, string $role_name, bool $news_creator, bool $news_moderator, bool $discussions_creator, bool $discussions_moderator, bool $users_moderator, bool $roles_moderator)
+    public function mount(RoleModel $role)
     {
-        $this->role_id = $role_id;
-        $this->role_name = $role_name;
-        $this->news_creator = $news_creator;
-        $this->news_moderator = $news_moderator;
-        $this->discussions_creator = $discussions_creator;
-        $this->discussions_moderator = $discussions_moderator;
-        $this->users_moderator = $users_moderator;
-        $this->roles_moderator = $roles_moderator;
-
-        $this->initial_role_name = $role_name;
+        $this->role = $role;
+        
+        $this->initial_role_name = $role['role_name'];
+        $this->role_name = $role['role_name'];
+        $this->news_creator = $role['news_creator'];
+        $this->news_moderator = $role['news_moderator'];
+        $this->discussions_creator = $role['discussions_creator'];
+        $this->discussions_moderator = $role['discussions_moderator'];
+        $this->users_moderator = $role['users_moderator'];
+        $this->roles_moderator = $role['roles_moderator'];
     }
 
     public function render()
@@ -56,7 +56,7 @@ class Role extends Component
 
     public function updateRole()
     {
-        $this->role_name = strtoupper($this->role_name);
+        $this->role['role_name'] = strtoupper($this->role['role_name']);
 
         $rules = $this->rules;
         if ($this->role_name === $this->initial_role_name)
@@ -64,23 +64,7 @@ class Role extends Component
 
         $validated = $this->validate($rules);
 
-        $role = RoleModel::find($this->role_id);
-        if ($role == null) {
-            $this->alert(
-                'error',
-                'Operation Failed',
-                [
-                    'toast' => false,
-                    'position' => 'center',
-                    'timer' => 5000,
-                    'text' => 'This role no longer exists in the database.',
-                    'showConfirmButton' => true,
-                ]
-            );
-            return;
-        }
-
-        $role->update($validated);
+        $this->role->update($validated);
         $this->initial_role_name = $this->role_name;
 
         $this->alert(
@@ -97,23 +81,7 @@ class Role extends Component
 
     public function deleteRole()
     {
-        $role = RoleModel::find($this->role_id);
-        if ($role == null) {
-            $this->alert(
-                'error',
-                'Operation Failed',
-                [
-                    'toast' => false,
-                    'position' => 'center',
-                    'timer' => 5000,
-                    'text' => 'This role no longer exists in the database.',
-                    'showConfirmButton' => true,
-                ]
-            );
-            return;
-        }
-
-        $role->delete();
+        $this->role->delete();
 
         $this->alert(
             'success',

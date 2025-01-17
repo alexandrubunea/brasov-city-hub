@@ -1,7 +1,7 @@
 <div class="p-5 border border-zinc-900 rounded-lg bg-blue-900" x-data="{ open: false }">
     <div class="flex flex-row justify-between">
         <div class="my-auto">
-            <h2 class="font-bold uppercase text-xl">{{ $role_name }}</h2>
+            <h2 class="font-bold uppercase text-xl">{{ $role['role_name'] }}</h2>
         </div>
         <button class="text-zinc-200 bg-zinc-950 rounded-xl p-3" @click="open = !open"><i class="fa-solid"
                 :class="open ? 'fa-chevron-up' : 'fa-chevron-down'"></i></button>

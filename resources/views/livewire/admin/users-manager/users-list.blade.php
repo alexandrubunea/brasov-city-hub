@@ -100,9 +100,7 @@
         @if (sizeof($users) > 0)
             <div class="flex flex-col gap-5">
                 @foreach ($users as $user)
-                    <livewire:admin.users-manager.user :wire:key="'user-'.$user['id']" :user_id="$user['id']"
-                        :first_name="$user['first_name']" :last_name="$user['last_name']" :username="$user['username']" :email="$user['email']" :banned="$user['banned']" :roles="$user['roles']"
-                        :created_at="$user['created_at']" :updated_at="$user['updated_at']" />
+                    <livewire:admin.users-manager.user :wire:key="'user-'.$user['id']" :user="$user"/>
                 @endforeach
             </div>
         @else
