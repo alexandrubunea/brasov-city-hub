@@ -23,6 +23,8 @@ class CompleteNewsArticle extends Component
     public bool $can_modify;
     public NewsLikesModel|null $liked_article = null;
 
+    public bool $logged_in = false;
+
     public NewsArticleModel $article;
 
     protected $listeners = [
@@ -48,6 +50,8 @@ class CompleteNewsArticle extends Component
             $this->liked_article = null;
             return;
         }
+
+        $this->logged_in = true;
 
         $article_owner = auth()->user() == $article->user && auth()->user()->hasRole('news_creator');
         $article_moderator = auth()->user()->hasRole('news_moderator');
@@ -103,7 +107,7 @@ class CompleteNewsArticle extends Component
 
     public function clickHeartButton()
     {
-        if (!auth()->check())
+        if ($this->logged_in)
             return;
 
         if ($this->liked_article == null)

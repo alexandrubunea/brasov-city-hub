@@ -26,7 +26,7 @@
     <hr class="my-5">
     @if ($liked_article == null)
         <button type="button" wire:click="clickHeartButton"
-            class="bg-transparent text-2xl font-bold border border-zinc-200 rounded-lg p-3 hover:bg-indigo-900 transition-colors duration-500 hover:border-transparent"><i
+            class="bg-transparent text-2xl font-bold border border-zinc-200 rounded-lg p-3 hover:bg-indigo-900 transition-colors duration-500 hover:border-transparent disabled:hover:bg-transparent disabled:hover:border-zinc-200" @if($logged_in) disabled @endif><i
                 class="fa-regular fa-heart"></i> {{ $likes }}</button>
     @else
         <button type="button" wire:click="clickHeartButton"
