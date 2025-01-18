@@ -26,17 +26,17 @@
                             x-transition:leave="transition transform ease-in duration-150"
                             x-transition:leave-start="scale-100 opacity-100" x-transition:leave-end="scale-95 opacity-0"
                             @click.away="open = false"
-                            class="absolute right-0 mt-2 w-40 bg-indigo-500 shadow-lg rounded-md z-10 bg-opacity-80">
+                            class="absolute py-1 right-0 mt-2 w-40 bg-indigo-500 shadow-lg rounded-md z-10 bg-opacity-80">
                             <ul>
                                 @if ($can_edit_comment)
                                     <li
-                                        class="hover:bg-indigo-950 rounded-md hover:cursor-pointer transition-colors duration-500">
+                                        class="hover:bg-indigo-950 hover:cursor-pointer transition-colors duration-500">
                                         <span wire:click="editComment" class="block px-4 py-2 text-sm">Edit</span>
                                     </li>
                                 @endif
                                 @if ($can_delete_comment)
                                     <li
-                                        class="hover:bg-indigo-950 rounded-md hover:cursor-pointer transition-colors duration-500">
+                                        class="hover:bg-indigo-950 hover:cursor-pointer transition-colors duration-500">
                                         <span wire:click="deleteComment" class="block px-4 py-2 text-sm">Delete</span>
                                     </li>
                                 @endif

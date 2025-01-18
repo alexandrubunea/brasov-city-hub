@@ -96,13 +96,12 @@
                     </div>
                     <div class="flex flex-row mt-10">
                         <button type="submit"
-                            class="bg-emerald-500 hover:bg-emerald-700 font-bold uppercase rounded-lg p-3 transition-colors duration-500">
-                            Update
+                            class="bg-emerald-500 hover:bg-emerald-700 font-bold uppercase rounded-lg p-3 transition-colors duration-500"><i
+                                class="fa-solid fa-floppy-disk"></i> Save
                         </button>
                         <button type="button"
                             class="bg-red-500 hover:bg-red-700 font-bold uppercase rounded-lg p-3 transition-colors duration-500 ml-3"
-                            wire:click="closeUser">
-                            Close
+                            wire:click="closeUser"><i class="fa-solid fa-circle-xmark"></i> Close
                         </button>
                     </div>
             </form>

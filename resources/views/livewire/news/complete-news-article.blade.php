@@ -20,6 +20,7 @@
                         class="fa-solid fa-file-pen"></i> Edit Article</a>
             </div>
         </div>
+        <hr class="my-5">
     @endif
     <div class="text-md">
         {!! $content !!}

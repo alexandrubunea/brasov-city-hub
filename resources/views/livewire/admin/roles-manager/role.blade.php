@@ -90,10 +90,10 @@
             </div>
             <div class="flex flex-row justify-start gap-2">
                 <button type="submit"
-                    class="p-3 uppercase font-bold bg-green-600 text-xl rounded-lg mt-5 hover:bg-green-800 transition-colors duration-500">Save
+                    class="p-3 uppercase font-bold bg-emerald-500 text-xl rounded-lg mt-5 hover:bg-emerald-700 transition-colors duration-500"><i class="fa-solid fa-floppy-disk"></i> Save
                     changes</button>
                 <button type="button" wire:click="deleteRole"
-                    class="p-3 uppercase font-bold bg-red-500 text-xl rounded-lg mt-5 hover:bg-red-700 transition-colors duration-500">Delete</button>
+                    class="p-3 uppercase font-bold bg-red-500 text-xl rounded-lg mt-5 hover:bg-red-700 transition-colors duration-500"><i class="fa-solid fa-trash-can"></i> Delete</button>
             </div>
         </form>
     </div>

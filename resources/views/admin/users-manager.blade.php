@@ -10,7 +10,7 @@
 
 <body class="bg-slate-950">
     <livewire:NavigationBar active_tab="manage" />
-    <div class="flex items-start flex-col py-10 px-5 gap-10 lg:flex-row lg:px-10">
+    <div class="flex items-start flex-col px-5 gap-10 lg:flex-row lg:px-10">
         <livewire:admin.users-manager.users-list />
         <livewire:admin.users-manager.user-editor />
     </div>

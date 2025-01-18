@@ -1,6 +1,7 @@
 <div class="bg-slate-700 p-5 text-zinc-200 rounded-lg">
     <h1 class="font-bold uppercase text-2xl"><i class="fa-solid fa-file-pen"></i> Create new role</h1>
-    <p class="font-light text-md text-justify">Create the roles that you need in a responsible manner, this is the most powerful
+    <p class="font-light text-md text-justify">Create the roles that you need in a responsible manner, this is the most
+        powerful
         action.</p>
     <hr class="my-3">
     @if ($errors->any())
@@ -84,7 +85,8 @@
         </div>
         <div class="flex">
             <button type="submit"
-                class="mx-auto p-3 uppercase font-bold bg-indigo-600 text-xl rounded-lg mt-5 hover:bg-indigo-800 transition-colors duration-500">Create
+                class="mx-auto p-3 uppercase font-bold bg-emerald-500 text-xl rounded-lg mt-5 hover:bg-emerald-700 transition-colors duration-500"><i
+                    class="fa-solid fa-square-plus"></i> Create
                 role</button>
         </div>
     </form>
