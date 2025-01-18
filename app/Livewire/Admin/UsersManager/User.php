@@ -10,10 +10,9 @@ class User extends Component
     public array $user;
     public int $user_id;
 
-    public function mount(array $user)
+    public function mount()
     {
-        $this->user = $user;
-        $this->user_id = $user['id'];
+        $this->user_id = $this->user['id'];
     }
 
     public function render()

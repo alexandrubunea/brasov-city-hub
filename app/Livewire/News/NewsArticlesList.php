@@ -88,9 +88,9 @@ class NewsArticlesList extends Component
             case 'hot':
                 $HOT_CONST = 1.0;
                 $query->leftJoin('news_likes', 'news_likes.news_article_id', '=', 'news_articles.id')
+                    ->leftJoin('article_comments', 'article_comments.news_article_id', '=', 'news_articles.id')
                     ->selectRaw('news_articles.*, 
-                               COUNT(news_likes.id) AS likes_count, 
-                               (COUNT(news_likes.id) - (EXTRACT(day FROM (CURRENT_DATE - news_articles.created_at)) * ?)) AS hotness', [$HOT_CONST])
+                               (COUNT(news_likes.id) + COUNT(article_comments.id) - (EXTRACT(day FROM (CURRENT_DATE - news_articles.created_at)) * ?)) AS hotness', [$HOT_CONST])
                     ->groupBy('news_articles.id')
                     ->orderBy('hotness', $this->order);
                 break;
@@ -115,6 +115,7 @@ class NewsArticlesList extends Component
                     'content' => Str::limit(preg_replace('/\s+/', ' ', html_entity_decode(strip_tags($article->content))), 1000),
                     'author' => $article->user->first_name . ' ' . $article->user->last_name,
                     'likes' => $article->likes->count(),
+                    'comments' => $article->comments->count(),
                     'created_at' => Carbon::parse($article->created_at)->format('d F Y H:i'),
                     'updated_at' => Carbon::parse($article->updated_at)->format('d F Y H:i'),
                 ];

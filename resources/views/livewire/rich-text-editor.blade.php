@@ -2,7 +2,7 @@
     <div wire:ignore x-data x-init="tinymce.init({
         selector: '#{{ $editorId }}',
         plugins: 'advlist autolink lists link image charmap preview table',
-        toolbar: 'undo redo | formatselect | bold italic | alignleft aligncenter alignright | bullist numlist | link image',
+        toolbar: 'undo redo | formatselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist | link image',
         height: 500,
         license_key: 'gpl',
         resize: false,

@@ -19,4 +19,9 @@ class NewsArticle extends Model
     {
         return $this->hasMany(NewsLikes::class, 'news_article_id');
     }
+
+    public function comments()
+    {
+        return $this->hasMany(ArticleComment::class, 'news_article_id');
+    }
 }

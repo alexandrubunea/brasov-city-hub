@@ -22,6 +22,11 @@ class User extends Authenticatable
         return $this->hasMany(NewsLikes::class);
     }
 
+    public function comments_on_articles()
+    {
+        return $this->hasMany(ArticleComment::class);
+    }
+    
     public function newsArticles()
     {
         return $this->hasMany(NewsArticle::class);

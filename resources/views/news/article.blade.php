@@ -9,8 +9,9 @@
 </head>
 
 <body class="bg-slate-950">
-    <livewire:NavigationBar active_tab="news"/>
-    <livewire:News.CompleteNewsArticle id="{{ $id }}" />
+    <livewire:NavigationBar active_tab="news" />
+    <livewire:News.CompleteNewsArticle article_id="{{ $id }}" />
+    <livewire:News.Comments article_id="{{ $id }}" />
     <x-livewire-alert::scripts />
 </body>
 

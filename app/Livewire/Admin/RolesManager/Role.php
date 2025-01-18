@@ -35,18 +35,16 @@ class Role extends Component
         'roles_moderator' => 'boolean'
     ];
 
-    public function mount(RoleModel $role)
+    public function mount()
     {
-        $this->role = $role;
-        
-        $this->initial_role_name = $role['role_name'];
-        $this->role_name = $role['role_name'];
-        $this->news_creator = $role['news_creator'];
-        $this->news_moderator = $role['news_moderator'];
-        $this->discussions_creator = $role['discussions_creator'];
-        $this->discussions_moderator = $role['discussions_moderator'];
-        $this->users_moderator = $role['users_moderator'];
-        $this->roles_moderator = $role['roles_moderator'];
+        $this->initial_role_name = $this->role['role_name'];
+        $this->role_name = $this->role['role_name'];
+        $this->news_creator = $this->role['news_creator'];
+        $this->news_moderator = $this->role['news_moderator'];
+        $this->discussions_creator = $this->role['discussions_creator'];
+        $this->discussions_moderator = $this->role['discussions_moderator'];
+        $this->users_moderator = $this->role['users_moderator'];
+        $this->roles_moderator = $this->role['roles_moderator'];
     }
 
     public function render()

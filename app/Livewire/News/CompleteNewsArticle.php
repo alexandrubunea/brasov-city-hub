@@ -19,6 +19,7 @@ class CompleteNewsArticle extends Component
     public string $created_at;
     public string $updated_at;
     public int $likes;
+    public int $comments;
 
     public bool $can_modify;
     public NewsLikesModel|null $liked_article = null;
@@ -31,14 +32,15 @@ class CompleteNewsArticle extends Component
         'deleteArticleConfirmed'
     ];
 
-    public function mount(int $id)
+    public function mount(int $article_id)
     {
-        $article = NewsArticleModel::findOrFail($id);
+        $article = NewsArticleModel::findOrFail($article_id);
 
         $this->id = $article->id;
         $this->title = $article->title;
         $this->author = $article->user->first_name . ' ' . $article->user->last_name;
         $this->likes = $article->likes()->count();
+        $this->comments = $article->comments->count();
         $this->content = $article->content;
         $this->created_at = Carbon::parse($article->created_at)->format('d F Y H:i');
         $this->updated_at = Carbon::parse($article->updated_at)->format('d F Y H:i');
@@ -58,7 +60,7 @@ class CompleteNewsArticle extends Component
         $this->can_modify = $article_owner || $article_moderator;
 
         $this->liked_article = NewsLikesModel::where('user_id', auth()->user()->id)
-            ->where('news_article_id', $id)
+            ->where('news_article_id', $article_id)
             ->first();
     }
 
@@ -107,7 +109,7 @@ class CompleteNewsArticle extends Component
 
     public function clickHeartButton()
     {
-        if ($this->logged_in)
+        if (!$this->logged_in)
             return;
 
         if ($this->liked_article == null)
