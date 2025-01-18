@@ -36,7 +36,7 @@
             <p class="text-2xl font-bold"> {{ $likes }}</p>
         </div>
         <a href="#comments" class="flex flex-col items-center">
-            <i class="fa-solid fa-comment-dots text-5xl"></i>
+            <i class="fa-solid fa-comment-dots text-5xl hover:text-violet-500 transition-colors duration-500"></i>
             <p class="text-2xl font-bold"> {{ $comments }}</p>
         </a>
     </div>

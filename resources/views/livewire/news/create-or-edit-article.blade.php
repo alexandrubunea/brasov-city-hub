@@ -30,7 +30,7 @@
         </div>
         <div class="flex justify-center">
             <button type="submit"
-                class="uppercase text-lg rounded-lg bg-indigo-700 hover:bg-indigo-900 transition-colors duration-500 p-5 font-bold"><i
+                class="uppercase text-lg rounded-lg bg-emerald-500 hover:bg-emerald-600 transition-colors duration-500 p-5 font-bold"><i
                     class="fa-solid fa-floppy-disk"></i> Save Article</button>
         </div>
     </form>

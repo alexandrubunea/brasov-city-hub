@@ -45,6 +45,7 @@ class Comments extends Component
 
         auth()->user()->comments_on_articles()->create($validator + ['news_article_id' => $this->article_id]);
         $this->content = '';
+        $this->current_page = 1;
         $this->loadComments();
     }
 
