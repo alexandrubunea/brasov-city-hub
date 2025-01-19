@@ -10,7 +10,7 @@
             get remainingChars() { return 500 - this.text.length }
         }">
             <div class="relative mb-2">
-                <textarea @if (!$can_add_comment) disabled @endif x-model="text" wire:model="content" rows="3" placeholder="Write your thoughts about this article..."
+                <textarea @if (!$can_add_comment) disabled @endif x-model="text" wire:model="content" rows="3" placeholder="@if ($can_add_comment) Write your thoughts about this article... @else Log in or create a new account to comment on this article! @endif"
                     class="block w-full p-4 bg-indigo-700 rounded-lg resize-none 
                            placeholder-zinc-400 transition duration-200
                            focus:ring-2 focus:ring-indigo-400 focus:ring-opacity-50

@@ -1,4 +1,4 @@
-<div class="w-[95%] mx-auto bg-indigo-500 p-4 lg:p-6 rounded-xl text-zinc-200 my-6 lg:my-10 shadow-xl">
+<div class="w-[95%] mx-auto bg-indigo-500 p-4 lg:p-6 rounded-lg text-zinc-200 my-6 lg:my-10 shadow-xl">
     <header class="mb-6">
         <h1 class="text-2xl lg:text-3xl font-bold flex items-center gap-3">
             <i class="fa-solid fa-newspaper"></i>

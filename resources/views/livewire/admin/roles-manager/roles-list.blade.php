@@ -2,7 +2,7 @@
     <h1 class="font-bold uppercase text-2xl"><i class="fa-solid fa-shield-halved"></i> Manage roles</h1>
     <p class="font-light text-md text-justify">Modify or delete already existing roles, use with caution, you will not
         be prevented
-        to delete or edit <span class="text-red-500">your own role that allows you to do these changes</span>.</p>
+        to delete or edit <span class="text-red-500 font-bold">your own role that allows you to do these changes</span>.</p>
     <hr class="my-3">
     <div class="flex flex-col gap-5 rounded max-h-96 overflow-y-scroll border-b-8 border-b-zinc-200">
         @foreach ($roles as $role)
