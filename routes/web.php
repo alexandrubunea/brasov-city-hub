@@ -23,11 +23,11 @@ Route::middleware(['auth'])->group(function () {
         Route::view('news/create-article', 'news.create-article')->name('news.create');
     });
 
-    // Editor Access
-    Route::middleware(['ensureUserHasRole:news_creator,news_editor'])->group(function () {
+    // Rich Text Editor Access
+    Route::middleware(['ensureUserHasRole:news_creator,news_moderator'])->group(function () {
         Route::post('/tinymce/upload', [RichTextEditorController::class, 'upload'])->name('rich-text-editor.upload');
     });
-    Route::middleware(['ensureUserHasRole:news_creator,news_editor'])->group(function () {
+    Route::middleware(['ensureUserHasRole:news_creator,news_moderator'])->group(function () {
         Route::view('news/edit-article/{id}', 'news.edit-article')->name('news.edit');
     });
 });
