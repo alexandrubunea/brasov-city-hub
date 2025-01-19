@@ -20,9 +20,14 @@ class Comments extends Component
 
     public int $article_id;
 
+    public bool $can_add_comment;
+
     public function mount(int $article_id)
     {
         $this->article_id = $article_id;
+
+        $this->can_add_comment = auth()->check() && !auth()->user()->banned;
+
         $this->loadComments();
     }
 
@@ -39,6 +44,9 @@ class Comments extends Component
 
     public function addComment()
     {
+        if (!$this->can_add_comment)
+            return;
+
         $validator = $this->validate([
             'content' => 'required|min:3|max:500',
         ]);

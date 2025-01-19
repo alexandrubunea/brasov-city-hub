@@ -8,55 +8,75 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="bg-slate-950">
+<body class="bg-gradient-to-br from-slate-950 to-slate-900 min-h-screen">
     <livewire:NavigationBar active_tab="login" />
-    <div class="flex">
-        <div class="bg-slate-900 text-zinc-200 rounded-xl mx-auto min-w-md max-w-xl p-5 my-10">
-            <h1 class="font-bold text-4xl">Login <i class="fa-solid fa-unlock-keyhole"></i></h1>
-            <p class="mt-5 font-light text-sm">If you already have an account, please enter your email or username along
-                with your password to log in and access your account.</p>
-            <hr class="my-5 border-zinc-200">
 
-            @error('email')
-                <livewire:Alert title="INVALID E-MAIL OR USERNAME"
-                    message="The e-mail or username you entered does not exist in our records." type="error" />
-            @enderror
+    <div class="container mx-auto px-4 flex items-center justify-center">
+        <div
+            class="w-full max-w-md bg-slate-900/90 backdrop-blur-sm text-zinc-200 rounded-2xl shadow-xl shadow-slate-900/20 p-6 sm:p-8 my-8">
+            <div class="space-y-4">
+                <h1 class="font-bold text-3xl sm:text-4xl flex items-center gap-3">
+                    Login
+                    <i class="fa-solid fa-unlock-keyhole text-sky-500"></i>
+                </h1>
 
-            @error('password')
-                <livewire:Alert title="INVALID PASSWORD" message="The password you entered is incorrect." type="error" />
-            @enderror
+                <p class="font-light text-sm text-zinc-400">
+                    If you already have an account, please enter your email or username along with your password to log
+                    in.
+                </p>
 
-            <form method="POST" action="{{ route('login') }}">
-                @csrf
-                <div class="mb-5">
-                    <label class="block font-semibold mb-2" for="username_or_email">Username or e-mail:</label>
-                    <input
-                        class="w-full text-zinc-900 border rounded-lg focus:border-zinc-900 focus:outline-none focus:ring-0 bg-zinc-100 p-3"
-                        id="email" name="email" type="text" maxlength="64" placeholder="Username or e-mail"
-                        required>
-                </div>
-                <div class="mb-20">
-                    <label class="block font-semibold mb-2" for="password">Password:</label>
-                    <input
-                        class="w-full text-zinc-900 border rounded-lg focus:border-zinc-900 focus:outline-none focus:ring-0 bg-zinc-100 p-3"
-                        id="password" name="password" type="password" placeholder="Password" required>
-                </div>
-                <div class="mb-5 gap-5">
-                    <button
-                        class="block font-bold bg-sky-500 hover:bg-sky-700 text-zinc-100 transition-colros duration-500 mx-auto p-5 rounded-lg w-80 mb-5"
-                        type="submit">Login</button>
-                    <div class="mb-5 mx-auto w-80">
-                        <p class="font-bold mb-2">You don't have an account?</p>
-                        <a class="block text-center font-bold bg-indigo-500 hover:bg-indigo-700 transition-colors duration-500 text-zinc-100 mx-auto p-5 rounded-lg"
-                            href="{{ route('register') }}">Register</a>
+                <hr class="border-zinc-700">
+
+                @error('email')
+                    <livewire:Alert title="INVALID E-MAIL OR USERNAME"
+                        message="The e-mail or username you entered does not exist in our records." type="error" />
+                @enderror
+
+                @error('password')
+                    <livewire:Alert title="INVALID PASSWORD" message="The password you entered is incorrect."
+                        type="error" />
+                @enderror
+
+                <form method="POST" action="{{ route('login') }}" class="space-y-6">
+                    @csrf
+                    <div class="space-y-2">
+                        <label class="block font-medium" for="username_or_email">
+                            Username or e-mail
+                        </label>
+                        <input
+                            class="w-full bg-zinc-800/50 text-zinc-200 border border-zinc-700 rounded-lg focus:border-sky-500 focus:ring-1 focus:ring-sky-500 focus:outline-none transition-all duration-200 p-3"
+                            id="email" name="email" type="text" maxlength="64"
+                            placeholder="Enter your username or email" required>
                     </div>
-                    <div class="mb-2 mx-auto w-80">
-                        <p class="font-bold mb-2">You don't remember your password?</p>
-                        <a class="block text-center font-bold bg-teal-500 hover:bg-teal-700 transition-colors duration-500 text-zinc-100 mx-auto p-5 rounded-lg w-80"
-                            href="{{ route('password.request') }}">Reset password</a>
+
+                    <div class="space-y-2">
+                        <label class="block font-medium" for="password">
+                            Password
+                        </label>
+                        <input
+                            class="w-full bg-zinc-800/50 text-zinc-200 border border-zinc-700 rounded-lg focus:border-sky-500 focus:ring-1 focus:ring-sky-500 focus:outline-none transition-all duration-200 p-3"
+                            id="password" name="password" type="password" placeholder="Enter your password" required>
                     </div>
-                </div>
-            </form>
+
+                    <div class="space-y-6 pt-4">
+                        <button
+                            class="w-full bg-sky-500 hover:bg-sky-600 active:bg-sky-700 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] shadow-lg hover:shadow-sky-500/25"
+                            type="submit">
+                            Sign In
+                        </button>
+
+                        <div class="space-y-4">
+                            <div class="text-center">
+                                <p class="font-medium text-zinc-400 mb-2">Don't have an account?</p>
+                                <a class="block w-full bg-indigo-500 hover:bg-indigo-600 active:bg-indigo-700 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] shadow-lg hover:shadow-indigo-500/25"
+                                    href="{{ route('register') }}">
+                                    Create Account
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </body>
