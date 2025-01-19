@@ -1,4 +1,4 @@
-<div class="w-[95%] mx-auto bg-indigo-600 p-4 lg:p-6 rounded-xl text-zinc-200 my-6 lg:my-10 shadow-xl">
+<div class="w-[95%] lg:w-2/3 mx-auto bg-gradient-to-bl from-violet-500 to-indigo-700 p-4 lg:p-6 rounded-xl text-zinc-200 my-6 lg:my-10 shadow-xl">
     <h1 id="comments" class="text-2xl lg:text-3xl uppercase font-bold mb-6">
         <i class="fa-solid fa-comment-dots"></i> Comments
     </h1>
@@ -36,7 +36,7 @@
         </div>
     </form>
 
-    <hr class="border-indigo-500 my-6">
+    <hr class="my-6">
     <div class="space-y-4">
         @forelse ($comments as $comment)
             <livewire:News.Comment :wire:key="'comment-'.$comment['id']" :comment="$comment" />
@@ -49,7 +49,7 @@
         @endforelse
     </div>
     @if ($number_of_pages)
-        <div class="mt-6 bg-indigo-950 rounded-lg p-4 overflow-x-auto">
+        <div class="mt-6 bg-zinc-900/80 rounded-lg p-4 overflow-x-auto">
             <div class="flex justify-center items-center gap-2 min-w-max">
                 @if ($current_page - 1 > 1)
                     <button type="button" wire:click="firstPage"

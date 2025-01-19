@@ -1,4 +1,4 @@
-<div class="bg-indigo-500 p-5 my-5 text-zinc-200 rounded-lg max-w-[95%] mx-auto">
+<div class="w-[95%] lg:w-2/3 bg-gradient-to-br from-indigo-500 to-violet-500 p-5 my-5 text-zinc-200 rounded-lg mx-auto">
     <h1 class="text-2xl font-bold mt-5"><i class="fa-solid fa-feather"></i>
         @if ($mode == 'create')
             Create a new article

@@ -1,4 +1,4 @@
-<div class="mt-5 bg-indigo-500 p-5 rounded-lg text-zinc-200 my-10 mx-auto w-[95%]">
+<div class="w-[95%] lg:w-2/3 mt-5 bg-gradient-to-br from-indigo-500 to-violet-500 p-5 rounded-lg text-zinc-200 my-10 mx-auto">
     <div class="space-y-2">
         <h1 class="text-2xl lg:text-3xl font-bold leading-tight">{{ $title }}</h1>
         <div class="flex flex-wrap gap-4 text-sm lg:text-base opacity-90">
@@ -18,7 +18,7 @@
     </div>
 
     @if ($can_modify)
-        <div class="bg-indigo-900 p-3 rounded-md my-5">
+        <div class="bg-zinc-900/50 p-3 rounded-md my-5">
             <h1 class="text-xl uppercase font-bold">Article tools</h1>
             <div class="flex flex-col lg:flex-row gap-2 mt-2">
                 <button type="button" wire:click="deleteArticle"
@@ -34,7 +34,7 @@
     <div class="text-md">
         {!! $content !!}
     </div>
-    <div class="flex flex-row justify-between gap-5 bg-indigo-700 rounded-lg mt-5 p-5">
+    <div class="flex flex-row justify-between gap-5 bg-zinc-900/50 rounded-lg mt-5 p-5">
         <div class="flex flex-col items-center">
             @if ($liked_article == null)
                 <i wire:click="clickHeartButton"

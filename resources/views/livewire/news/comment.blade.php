@@ -1,7 +1,7 @@
 <div class="w-full text-zinc-200">
     <div class="flex flex-col sm:flex-row">
         <div
-            class="bg-indigo-500 rounded-t-lg sm:rounded-t-none sm:rounded-l-lg p-4 sm:w-36 flex flex-col items-center justify-center text-center">
+            class="bg-indigo-500 rounded-t-lg sm:rounded-l-lg p-4 sm:w-36 flex flex-col items-center justify-center text-center">
             <i class="fa-solid fa-user text-2xl mb-2"></i>
             <span class="font-medium truncate max-w-full">{{ $comment['author'] }}</span>
         </div>

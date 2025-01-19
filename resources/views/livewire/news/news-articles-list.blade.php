@@ -1,16 +1,9 @@
-<div class="w-[95%] mx-auto bg-indigo-500 p-4 lg:p-6 rounded-lg text-zinc-200 my-6 lg:my-10 shadow-xl">
-    <header class="mb-6">
-        <h1 class="text-2xl lg:text-3xl font-bold flex items-center gap-3">
-            <i class="fa-solid fa-newspaper"></i>
-            <span>The compilation of news available on our website</span>
-        </h1>
-    </header>
-
-    <div class="bg-indigo-700 p-4 lg:p-6 rounded-lg shadow-inner mb-6">
-        <h2 class="text-xl font-bold flex items-center gap-2 mb-4">
+<div class="w-[95%] lg:w-2/3 mx-auto text-zinc-200 mb-10">
+    <div class="bg-gradient-to-br from-indigo-700 to-violet-700 p-4 lg:p-6 rounded-lg shadow-inner mb-6">
+        <h1 class="text-3xl font-bold flex items-center gap-2 mb-4">
             <i class="fa-solid fa-magnifying-glass"></i>
             <span>Search an article</span>
-        </h2>
+        </h1>
 
         <form wire:submit.prevent="submitSearch" class="space-y-4">
             <div>
@@ -93,7 +86,7 @@
     </div>
 
     @if ($is_news_creator)
-        <div class="bg-indigo-900 p-4 lg:p-6 rounded-lg shadow-inner mb-6">
+        <div class="bg-gradient-to-br from-indigo-900 to-violet-900 p-4 lg:p-6 rounded-lg shadow-inner mb-6">
             <p class="text-base lg:text-lg mb-4">
                 One of your roles grants you the ability to create news content. Please press the button below if you
                 wish
@@ -107,7 +100,7 @@
         </div>
     @endif
 
-    <div class="bg-indigo-900 p-4 lg:p-6 rounded-lg shadow-inner">
+    <div class="bg-gradient-to-br from-indigo-900 to-violet-900 p-4 lg:p-6 rounded-lg shadow-inner">
         <div class="space-y-4">
             @forelse ($news_articles as $news_article)
                 <livewire:News.NewsArticle :wire:key="'news-article-'.$news_article['id']" :news_article="$news_article" />
@@ -117,49 +110,48 @@
                 </div>
             @endforelse
         </div>
-    </div>
-
-    @if ($number_of_pages)
-        <div class="mt-6 bg-indigo-950 rounded-lg p-4 overflow-x-auto">
-            <div class="flex justify-center items-center gap-2 min-w-max">
-                @if ($current_page - 1 > 1)
-                    <button type="button" wire:click="firstPage"
-                        class="px-4 py-2 lg:px-6 lg:py-3 bg-indigo-700 hover:bg-indigo-800 rounded-lg transition duration-200">
-                        1
-                    </button>
-                    @if ($current_page - 2 > 1)
-                        <span class="px-4 py-2 lg:px-6 lg:py-3 bg-indigo-700 rounded-lg">...</span>
+        @if ($number_of_pages)
+            <div class="mt-6 bg-zinc-900/80 rounded-lg p-4 overflow-x-auto">
+                <div class="flex justify-center items-center gap-2 min-w-max">
+                    @if ($current_page - 1 > 1)
+                        <button type="button" wire:click="firstPage"
+                            class="px-4 py-2 lg:px-6 lg:py-3 bg-indigo-700 hover:bg-indigo-800 rounded-lg transition duration-200">
+                            1
+                        </button>
+                        @if ($current_page - 2 > 1)
+                            <span class="px-4 py-2 lg:px-6 lg:py-3 bg-indigo-700 rounded-lg">...</span>
+                        @endif
                     @endif
-                @endif
 
-                @if ($current_page - 1 >= 1)
-                    <button type="button" wire:click="prevPage"
-                        class="px-4 py-2 lg:px-6 lg:py-3 bg-indigo-700 hover:bg-indigo-800 rounded-lg transition duration-200">
-                        {{ $current_page - 1 }}
-                    </button>
-                @endif
-
-                <span class="px-4 py-2 lg:px-6 lg:py-3 bg-indigo-900 rounded-lg font-bold">
-                    {{ $current_page }}
-                </span>
-
-                @if ($current_page + 1 <= $number_of_pages)
-                    <button type="button" wire:click="nextPage"
-                        class="px-4 py-2 lg:px-6 lg:py-3 bg-indigo-700 hover:bg-indigo-800 rounded-lg transition duration-200">
-                        {{ $current_page + 1 }}
-                    </button>
-                @endif
-
-                @if ($current_page + 1 < $number_of_pages)
-                    @if ($current_page + 2 < $number_of_pages)
-                        <span class="px-4 py-2 lg:px-6 lg:py-3 bg-indigo-700 rounded-lg">...</span>
+                    @if ($current_page - 1 >= 1)
+                        <button type="button" wire:click="prevPage"
+                            class="px-4 py-2 lg:px-6 lg:py-3 bg-indigo-700 hover:bg-indigo-800 rounded-lg transition duration-200">
+                            {{ $current_page - 1 }}
+                        </button>
                     @endif
-                    <button type="button" wire:click="lastPage"
-                        class="px-4 py-2 lg:px-6 lg:py-3 bg-indigo-700 hover:bg-indigo-800 rounded-lg transition duration-200">
-                        {{ $number_of_pages }}
-                    </button>
-                @endif
+
+                    <span class="px-4 py-2 lg:px-6 lg:py-3 bg-indigo-900 rounded-lg font-bold">
+                        {{ $current_page }}
+                    </span>
+
+                    @if ($current_page + 1 <= $number_of_pages)
+                        <button type="button" wire:click="nextPage"
+                            class="px-4 py-2 lg:px-6 lg:py-3 bg-indigo-700 hover:bg-indigo-800 rounded-lg transition duration-200">
+                            {{ $current_page + 1 }}
+                        </button>
+                    @endif
+
+                    @if ($current_page + 1 < $number_of_pages)
+                        @if ($current_page + 2 < $number_of_pages)
+                            <span class="px-4 py-2 lg:px-6 lg:py-3 bg-indigo-700 rounded-lg">...</span>
+                        @endif
+                        <button type="button" wire:click="lastPage"
+                            class="px-4 py-2 lg:px-6 lg:py-3 bg-indigo-700 hover:bg-indigo-800 rounded-lg transition duration-200">
+                            {{ $number_of_pages }}
+                        </button>
+                    @endif
+                </div>
             </div>
-        </div>
-    @endif
+        @endif
+    </div>
 </div>
