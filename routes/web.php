@@ -8,7 +8,14 @@ Route::view('/', 'index');
 Route::view('news', 'news.news')->name('news.view');
 Route::view('news/article/{id}', 'news.article')->name('news.article');
 
+Route::view('discussions', 'discussions.discussions')->name('discussions.view');
+
+Route::view('discover', 'discover.discover')->name('discover.view');
+
 Route::middleware(['auth'])->group(function () {
+    // Profile
+    Route::view('profile', 'profile.profile')->name('profile.view');
+
     // Admin Group
     Route::middleware(['ensureUserHasRole:users_moderator'])->group(function () {
         Route::view('manage/users', 'admin.users-manager')->name('users.view');

@@ -52,7 +52,7 @@
                                         Manage
                                     </button>
 
-                                    <div x-show="open_manage_menu" @click.away="open_manage_menu = false"
+                                    <div x-cloak x-show="open_manage_menu" @click.away="open_manage_menu = false"
                                         x-transition:enter="transition ease-out duration-200"
                                         x-transition:enter-start="opacity-0 transform -translate-y-2"
                                         x-transition:enter-end="opacity-100 transform translate-y-0"
@@ -132,7 +132,7 @@
                             Manage
                         </button>
 
-                        <div x-show="open_mobile_manage" class="pl-4 space-y-1">
+                        <div x-cloak x-show="open_mobile_manage" class="pl-4 space-y-1">
                             @if ($is_users_moderator)
                                 <a href="{{ route('users.view') }}"
                                     class="block px-3 py-2 rounded-md text-base font-medium text-zinc-200 hover:bg-indigo-700 hover:text-white transition-all duration-300">
