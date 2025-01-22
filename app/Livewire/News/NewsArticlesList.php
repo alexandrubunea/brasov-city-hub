@@ -100,6 +100,7 @@ class NewsArticlesList extends Component
                     ->selectRaw('news_articles.*, COUNT(news_likes.id) AS likes_count')
                     ->groupBy('news_articles.id')
                     ->orderBy('likes_count', $this->order);
+                break;
 
             case 'recent':
                 $query->orderBy('created_at', $this->order);

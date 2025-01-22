@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,15 @@ class DiscussionFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'content' => implode(' ', fake()-> sentences(5)),
+            'user_id' => User::inRandomOrder()->first()->id,
+            'cultural_event' => $this->faker->boolean,
+            'sport_event' => $this->faker->boolean,
+            'movie_night' => $this->faker->boolean,
+            'party' => $this->faker->boolean,
+            'show' => $this->faker->boolean,
+            'concert' => $this->faker->boolean,
+            'other' => $this->faker->boolean
         ];
     }
 }

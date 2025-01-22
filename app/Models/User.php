@@ -17,6 +17,11 @@ class User extends Authenticatable
         'password'
     ];
 
+    public function liked_discussions()
+    {
+        return $this->hasMany(Discussion::class);
+    }
+
     public function liked_articles()
     {
         return $this->hasMany(NewsLikes::class);
@@ -30,6 +35,11 @@ class User extends Authenticatable
     public function newsArticles()
     {
         return $this->hasMany(NewsArticle::class);
+    }
+
+    public function discussions()
+    {
+        return $this->hasMany(Discussion::class);
     }
 
     public function roles()
