@@ -4,7 +4,6 @@ namespace App\Policies;
 
 use App\Models\Discussion;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
 
 class DiscussionPolicy
 {
@@ -29,7 +28,7 @@ class DiscussionPolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        return $user->hasRole('discussion_creator') && !$user->banned;
     }
 
     /**
@@ -37,7 +36,7 @@ class DiscussionPolicy
      */
     public function update(User $user, Discussion $discussion): bool
     {
-        return false;
+        return ($user->hasRole('discussion_moderator') || $discussion->user() == $user) && !$user->banned;
     }
 
     /**
@@ -45,7 +44,7 @@ class DiscussionPolicy
      */
     public function delete(User $user, Discussion $discussion): bool
     {
-        return false;
+        return $user->hasRole('news_moderator') || $discussion->user() == $user;
     }
 
     /**

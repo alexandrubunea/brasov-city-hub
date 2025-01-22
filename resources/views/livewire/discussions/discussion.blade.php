@@ -171,8 +171,13 @@
             {{ $content }}
         </p>
         <div class="mt-5 flex flex-row items-center gap-3">
-            <i wire:click="likeDiscussion"
-                class="fa-solid fa-heart text-4xl hover:scale-125 hover:cursor-pointer hover:text-red-500 transition-all duration-500"></i>
+            @if ($liked_discussion == null)
+                <i wire:click="clickHeartButton"
+                    class="fa-solid fa-heart text-4xl hover:text-red-500 hover:scale-125 transition-all duration-500 hover:cursor-pointer"></i>
+            @else
+                <i wire:click="clickHeartButton"
+                    class="fa-solid fa-heart-crack text-4xl hover:text-zinc-900 hover:scale-125 transition-all duration-500 hover:cursor-pointer"></i>
+            @endif
             <span class="text-xl font-bold">{{ $discussion['likes'] }}</span>
         </div>
     @endif

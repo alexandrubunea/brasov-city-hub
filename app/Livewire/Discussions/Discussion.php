@@ -3,11 +3,13 @@
 namespace App\Livewire\Discussions;
 
 use App\Models\Discussion as DiscussionModel;
+use App\Models\DiscussionLikes as DiscussionLikesModel;
 use Livewire\Component;
 
 class Discussion extends Component
 {
-    public array $discussion; 
+    public array $discussion;
+    public int $likes;
 
     public string $content;
     public bool $cultural_event;
@@ -23,6 +25,9 @@ class Discussion extends Component
 
     public bool $can_edit_discussion;
     public bool $can_delete_discussion;
+    public DiscussionLikesModel|null $liked_discussion = null;
+
+    public bool $logged_in;
 
     public function mount()
     {
@@ -38,7 +43,9 @@ class Discussion extends Component
         $this->concert = $this->discussion['concert'];
         $this->other = $this->discussion['other'];
 
-        if (!auth()->check()) {
+        $this->logged_in = auth()->check();
+
+        if (!$this->logged_in) {
             $this->can_edit_discussion = false;
             $this->can_delete_discussion = false;
             return;
@@ -47,20 +54,34 @@ class Discussion extends Component
         $discussion = DiscussionModel::find($this->discussion['id']);
         $this->can_delete_discussion = $discussion->user == auth()->user() || auth()->user()->hasRole('news_moderator') || auth()->user->hasRole('users_moderator');
         $this->can_edit_discussion = $discussion->user == auth()->user() && !$discussion->user->banned;
- 
+
+        $this->liked_discussion = DiscussionLikesModel::where('user_id', auth()->user()->id)
+            ->where('discussion_id', $this->discussion['id'])
+            ->first();
     }
 
-    public function likeDiscussion()
+    public function clickHeartButton()
     {
-        
-    }
+        if (!$this->logged_in)
+            return;
+
+        if ($this->liked_discussion == null) {
+            $this->liked_discussion = DiscussionLikesModel::create(['user_id' => auth()->user()->id, 'discussion_id' => $this->discussion['id']]);
+            $this->discussion['likes'] += 1;
+        }
+        else {
+            $this->liked_discussion->delete();
+            $this->liked_discussion = null;
+            $this->discussion['likes'] -= 1;
+        }
+    } 
 
     public function deleteDiscussion()
     {
         if (!$this->can_delete_discussion)
             return;
         DiscussionModel::find($this->discussion['id'])->delete();
-        $this->dispatch('refreshDiscussions')->to(Discussions::class); 
+        $this->dispatch('refreshDiscussions')->to(Discussions::class);
     }
 
     public function editDiscussion()
@@ -78,7 +99,7 @@ class Discussion extends Component
         $validator = $this->validate([
             'content' => 'required|min:3|max:500',
         ]);
-        
+
         DiscussionModel::find($this->discussion['id'])->update($validator);
 
         $this->is_edited = true;
