@@ -1,4 +1,4 @@
-<div class="bg-indigo-500 p-5 rounded-md w-full">
+<div id="discussion-{{ $discussion['id'] }}" class="bg-indigo-500 p-5 rounded-md w-full">
     <div class="flex flex-row justify-between">
         <h1 class="font-bold text-xl uppercase">{{ $discussion['author'] }}</h1>
         <div class="flex flex-row items-center gap-8">

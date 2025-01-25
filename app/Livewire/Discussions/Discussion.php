@@ -60,9 +60,17 @@ class Discussion extends Component
             ->first();
     }
 
+    public function doesDiscussionStillExists()
+    {
+        return DiscussionModel::find($this->discussion['id']) != null;
+    }
+
     public function clickHeartButton()
     {
         if (!$this->logged_in)
+            return;
+
+        if (!$this->doesDiscussionStillExists())
             return;
 
         if ($this->liked_discussion == null) {
@@ -80,6 +88,10 @@ class Discussion extends Component
     {
         if (!$this->can_delete_discussion)
             return;
+
+        if (!$this->doesDiscussionStillExists())
+            return;
+
         DiscussionModel::find($this->discussion['id'])->delete();
         $this->dispatch('refreshDiscussions')->to(Discussions::class);
     }
@@ -88,12 +100,19 @@ class Discussion extends Component
     {
         if (!$this->can_edit_discussion)
             return;
+
+        if (!$this->doesDiscussionStillExists())
+            return;
+
         $this->edit_mode = true;
     }
 
     public function saveEditDiscussion()
     {
         if (!$this->can_edit_discussion)
+            return;
+
+        if (!$this->doesDiscussionStillExists())
             return;
 
         $validator = $this->validate([

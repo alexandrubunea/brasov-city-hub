@@ -12,7 +12,7 @@ class Discussions extends Component
 {
     public string $sort_by;
     public string $content;
-    public array $discussions;
+    public array $discussions = [];
 
     public bool $cultural_event = false;
     public bool $sport_event = false;
@@ -21,6 +21,9 @@ class Discussions extends Component
     public bool $show = false;
     public bool $concert = false;
     public bool $other = false;
+
+    public int $load_from = 0;
+    public int $load_factor = 25;
 
     public function mount()
     {
@@ -36,7 +39,7 @@ class Discussions extends Component
     #[On('refreshDiscussions')]
     public function refreshDiscussions()
     {
-        $this->loadDiscussions();
+        $this->loadDiscussions(false);
     }
 
     public function addDiscussion()
@@ -54,10 +57,20 @@ class Discussions extends Component
 
         auth()->user()->discussions()->create($validator);
 
-        $this->loadDiscussions();
+        $this->content = '';
+        $this->cultural_event = false;
+        $this->sport_event = false;
+        $this->movie_night = false;
+        $this->party = false;
+        $this->show = false;
+        $this->concert = false;
+        $this->other = false;
+
+        $this->loadDiscussions(false);
     }
 
-    protected function loadDiscussions()
+    #[On('loadMoreDiscussions')]
+    public function loadDiscussions($expandDiscussions = true)
     {
         $query = DiscussionModel::query();
 
@@ -83,9 +96,12 @@ class Discussions extends Component
                 break;
         }
 
+        $elements_to_load = (($this->load_from) ? (int)($this->load_from / $this->load_factor)  : 1) * $this->load_factor;
+
         $discussions = $query->with(['user', 'likes'])
             ->get()
-            ->take(10)
+            ->skip($expandDiscussions ? $this->load_from : 0)
+            ->take($expandDiscussions ? $this->load_factor : $elements_to_load)
             ->map(function ($discussion) {
                 return [
                     'id' => $discussion->id,
@@ -106,7 +122,22 @@ class Discussions extends Component
             })
             ->toArray();
 
-        $this->discussions = $discussions;
+        if ($expandDiscussions) {
+            $this->discussions = array_merge($this->discussions, $discussions);
+            $this->load_from += $this->load_factor;
+        } else {
+            $this->dispatch(
+                'disconnectObserver',
+                lastLoadedId: end($this->discussions)['id'],
+            )->self();
+            $this->discussions = $discussions;
+        }
+
+        $this->dispatch(
+            'discussionsLoaded',
+            lastLoadedId: end($this->discussions)['id'],
+            hasMoreDiscussions: count($discussions) > 0
+        )->self();
     }
 
     public function setOrderBy(string $sort_by)
@@ -115,6 +146,8 @@ class Discussions extends Component
             return;
 
         $this->sort_by = $sort_by;
+        $this->discussions = [];
+        $this->load_from = 0;
         $this->loadDiscussions();
     }
 }

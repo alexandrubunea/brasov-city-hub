@@ -95,11 +95,47 @@
         </div>
         <hr class="my-5 border-indigo-500">
         <div class="flex flex-col gap-5">
-            @forelse ($discussions as $discussion)
-                <livewire:Discussions.Discussion :wire:key="'id-'.$discussion['id']" :discussion="$discussion"/>
-            @empty
+            @foreach ($discussions as $index => $discussion)
+                <livewire:Discussions.Discussion :wire:key="'id-'.$discussion['id'].'-'.$index" :discussion="$discussion" />
+            @endforeach
+
+            @if (sizeof($discussions) == 0)
                 <h1 class="text-zinc-400/80 uppercase text-xl font-bold text-center">There are no discussions</h1>
-            @endforelse
+            @else
+                <h1 class="text-zinc-400/80 uppercase text-xl font-bold text-center">You've reached the end</h1>
+            @endif
         </div>
     </div>
+    @script
+        <script>
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        $wire.dispatchSelf('loadMoreDiscussions');
+                        observer.disconnect();
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            $wire.on('disconnectObserver', (event) => {
+                const { lastLoadedId } = event;
+                const old_load_anchor = document.getElementById(`discussion-${lastLoadedId}`);
+                observer.disconnect(old_load_anchor);
+            });
+
+            $wire.on('discussionsLoaded', (event) => {
+                const { lastLoadedId, hasMoreDiscussions } = event;
+
+                if (!hasMoreDiscussions) return;
+
+                setTimeout(() => {
+                    const load_anchor = document.getElementById(`discussion-${lastLoadedId}`);
+                    if (load_anchor)
+                        observer.observe(load_anchor);
+                }, 100);
+            });
+        </script>
+    @endscript
 </div>
