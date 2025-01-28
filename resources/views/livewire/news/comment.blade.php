@@ -32,12 +32,12 @@
                             x-transition:leave="transition transform ease-in duration-150"
                             x-transition:leave-start="scale-100 opacity-100" x-transition:leave-end="scale-95 opacity-0"
                             @click.away="open = false"
-                            class="absolute right-0 mt-2 w-48 bg-indigo-500 rounded-lg shadow-xl z-10">
+                            class="absolute right-0 mt-2 w-48 bg-indigo-500/80 rounded-lg shadow-xl z-10">
                             <ul class="py-1">
                                 @if ($can_edit_comment)
                                     <li>
                                         <button wire:click="editComment"
-                                            class="w-full text-left px-4 py-2 text-sm hover:bg-indigo-600 transition duration-200 flex items-center gap-2">
+                                            class="w-full text-left px-4 py-2 text-sm hover:bg-indigo-600/80 transition duration-200 flex items-center gap-2">
                                             <i class="fa-solid fa-pen-to-square"></i>
                                             <span>Edit</span>
                                         </button>
@@ -46,7 +46,7 @@
                                 @if ($can_delete_comment)
                                     <li>
                                         <button wire:click="deleteComment"
-                                            class="w-full text-left px-4 py-2 text-sm hover:bg-indigo-600 transition duration-200 flex items-center gap-2">
+                                            class="w-full text-left px-4 py-2 text-sm hover:bg-indigo-600/80 transition duration-200 flex items-center gap-2">
                                             <i class="fa-solid fa-trash-can"></i>
                                             <span>Delete</span>
                                         </button>

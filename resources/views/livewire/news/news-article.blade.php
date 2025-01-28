@@ -5,7 +5,7 @@
     >
         <h2 class="text-xl lg:text-2xl font-bold text-zinc-100 mb-2">{{ $news_article['title'] }}</h2>
 
-        <div class="flex flex-row gap-5 mb-1 text-zinc-200/90">
+        <div class="flex flex-row flex-wrap gap-2 lg:gap-5 mb-1 text-zinc-200/90">
             <p class="text-sm flex items-center gap-2">
                 <i class="fa-solid fa-user"></i>
                 <span>{{ $news_article['author'] }}</span>
@@ -20,7 +20,7 @@
             </p>
         </div>
 
-        <div class="flex gap-4 mb-3 text-zinc-200/90">
+        <div class="flex gap-4 flex-wrap mb-3 text-zinc-200/90">
             <p class="text-sm flex items-center gap-2">
                 <i class="fa-solid fa-heart text-red-400"></i>
                 <span>{{ $news_article['likes'] }} Likes</span>

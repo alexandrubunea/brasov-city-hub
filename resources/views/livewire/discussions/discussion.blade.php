@@ -141,7 +141,7 @@
             </div>
         </form>
     @else
-        <div class="flex flex-row gap-2 mt-2">
+        <div class="flex flex-row flex-wrap gap-2 mt-2">
             @if ($cultural_event)
                 <span class="bg-red-500 text-xs p-2 rounded-md"><i class="fa-solid fa-masks-theater"></i> Cultural
                     Event</span>
