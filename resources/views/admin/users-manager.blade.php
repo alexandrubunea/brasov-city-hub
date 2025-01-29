@@ -18,6 +18,7 @@
             <livewire:admin.users-manager.user-editor />
         </div>
     </div>
+    <livewire:footer />
     <x-livewire-alert::scripts />
 </body>
 

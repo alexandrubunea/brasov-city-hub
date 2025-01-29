@@ -14,6 +14,7 @@
         <livewire:admin.roles-manager.role-creator />
         <livewire:admin.roles-manager.roles-list />
     </div>
+    <livewire:footer />
     <x-livewire-alert::scripts />
 </body>
 

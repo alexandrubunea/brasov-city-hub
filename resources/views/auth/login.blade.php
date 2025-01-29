@@ -79,6 +79,6 @@
             </div>
         </div>
     </div>
+<livewire:footer />
 </body>
-
 </html>

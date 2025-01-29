@@ -11,6 +11,7 @@
 <body class="bg-slate-950">
     <livewire:NavigationBar active_tab="discussions"/>
     <livewire:Discussions.Discussions />
+    <livewire:footer />
 </body>
 
 </html>

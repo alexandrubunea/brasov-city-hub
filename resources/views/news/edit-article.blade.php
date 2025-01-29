@@ -4,13 +4,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ config('app.name') }}</title>
+    <title>{{ config('app.name') }} - News Edit</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body class="bg-slate-950">
     <livewire:NavigationBar active_tab="news" />
     <livewire:News.CreateOrEditArticle mode="edit" id="{{ $id }}" />
+    <livewire:footer />
     <x-livewire-alert::scripts />
 </body>
 
