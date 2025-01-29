@@ -25,8 +25,11 @@ class Discussions extends Component
     public int $load_from = 0;
     public int $load_factor = 25;
 
+    public bool $can_create_discussion = false;
+
     public function mount()
     {
+        $this->can_create_discussion = auth()->check() && auth()->user()->hasRole('discussions_creator');
         $this->sort_by = 'hotness';
         $this->loadDiscussions();
     }

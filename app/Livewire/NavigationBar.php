@@ -18,10 +18,6 @@ class NavigationBar extends Component
         $this->$active_tab = $active_tab;
 
         $this->tabs = [
-            'Home' => [
-                'route' => '/',
-                'active' => strcmp('home', $active_tab) == 0
-            ],
             'Discover' => [
                 'route' => 'discover',
                 'active' => strcmp('discover', $active_tab) == 0

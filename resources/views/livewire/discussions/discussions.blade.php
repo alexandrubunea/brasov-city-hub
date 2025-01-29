@@ -1,4 +1,5 @@
 <div class="w-[95%] lg:w-2/3 mx-auto mb-10">
+@if ($can_create_discussion) 
     <form wire:submit.prevent="addDiscussion"
         class="p-5 rounded-lg mb-6 bg-gradient-to-br from-indigo-500 to-violet-800 text-zinc-200">
         <div x-data="{
@@ -77,6 +78,7 @@
             </button>
         </div>
     </form>
+@endif
     <div class="p-5 rounded-lg bg-gradient-to-br from-indigo-700 to-violet-900 text-zinc-200">
         <h1 class="uppercase font-bold text-3xl mt-10"><i class="fa-solid fa-compass"></i> Explore Discussions</h1>
         <div class="px-5 mt-3 flex flex-col lg:flex-row gap-5">

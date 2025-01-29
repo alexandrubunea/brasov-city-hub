@@ -7,9 +7,7 @@
     <title>{{ config('app.name') }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-
 <body class="bg-slate-950">
-    <livewire:NavigationBar active_tab="home"/>
+    <livewire:homepage />
 </body>
-
 </html>
