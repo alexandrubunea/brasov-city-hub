@@ -29,7 +29,7 @@ class NewsArticlePolicy
      */
     public function create(User $user): bool
     {
-        return $user->hasRole('news_creator');
+        return $user->hasRole('news_creator') && !$user->banned;
     }
 
     /**
@@ -37,7 +37,7 @@ class NewsArticlePolicy
      */
     public function update(User $user, NewsArticle $newsArticle): bool
     {
-        return $user->hasRole('news_moderator') || $newsArticle->user() == $user;
+        return ($user->hasRole('news_moderator') || $newsArticle->user() == $user) && !$user->banned;
     }
 
     /**

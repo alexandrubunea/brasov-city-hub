@@ -29,7 +29,7 @@ class Discussions extends Component
 
     public function mount()
     {
-        $this->can_create_discussion = auth()->check() && auth()->user()->hasRole('discussions_creator');
+        $this->can_create_discussion = auth()->check() && auth()->user()->hasRole('discussions_creator') && !auth()->user()->banned;
         $this->sort_by = 'hotness';
         $this->loadDiscussions();
     }

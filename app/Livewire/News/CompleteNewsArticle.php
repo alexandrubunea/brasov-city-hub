@@ -57,7 +57,7 @@ class CompleteNewsArticle extends Component
 
         $article_owner = auth()->user() == $article->user && auth()->user()->hasRole('news_creator');
         $article_moderator = auth()->user()->hasRole('news_moderator');
-        $this->can_modify = $article_owner || $article_moderator;
+        $this->can_modify = ($article_owner || $article_moderator) && !auth()->user()->banned;
 
         $this->liked_article = NewsLikesModel::where('user_id', auth()->user()->id)
             ->where('news_article_id', $article_id)

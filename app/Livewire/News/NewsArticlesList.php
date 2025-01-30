@@ -26,7 +26,7 @@ class NewsArticlesList extends Component
         $this->sort = 'hot';
         $this->search_bar = '';
         $this->order = 'desc';
-        $this->is_news_creator = auth()->check() && auth()->user()->hasRole('news_creator');
+        $this->is_news_creator = auth()->check() && auth()->user()->hasRole('news_creator') && !auth()->user()->banned;
         $this->loadArticles();
     }
 

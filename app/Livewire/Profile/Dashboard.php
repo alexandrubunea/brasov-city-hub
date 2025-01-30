@@ -19,7 +19,6 @@ class Dashboard extends Component
     public string $last_name;
     public string $username;
     public string $email;
-    public array $roles;
     public int $comments_created;
     public string $created_at;
     public bool $banned;
@@ -45,7 +44,6 @@ class Dashboard extends Component
         $this->last_name = $user->last_name;
         $this->username = $user->username;
         $this->email = $user->email;
-        $this->roles = $user->roles()->get()->toArray();
         $this->banned = $user->banned;
         $this->created_at = Carbon::parse($user->created_at)->format('d F Y');
         $this->comments_created = $user->comments_on_articles()->count();

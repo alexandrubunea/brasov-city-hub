@@ -42,15 +42,13 @@ class CreateOrEditArticle extends Component
             $this->title = $this->article->title;
             $this->content = $this->article->content;
 
-            if (!auth()->check()) {
-                $this->can_modify = false;
-                return;
-            }
-
             $article_owner = auth()->user() == $this->article->user && auth()->user()->hasRole('news_creator');
             $article_moderator = auth()->user()->hasRole('news_moderator');
             $this->can_modify = $article_owner || $article_moderator;
         }
+
+        if (auth()->check() && auth()->user()->banned)
+            $this->redirect(route('news.view'));
     }
 
     public function render()
