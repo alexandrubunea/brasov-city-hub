@@ -29,7 +29,7 @@ class Comment extends Component
         }
 
         $comment = ArticleComment::find($this->comment['id']);
-        $this->can_delete_comment = $comment->user == auth()->user() || auth()->user()->hasRole('news_moderator') || auth()->user->hasRole('users_moderator');
+        $this->can_delete_comment = $comment->user == auth()->user() || auth()->user()->hasRole('news_moderator') || auth()->user()->hasRole('users_moderator');
         $this->can_edit_comment = $comment->user == auth()->user() && !$comment->user->banned;
     }
 

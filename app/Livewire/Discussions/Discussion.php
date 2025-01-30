@@ -52,7 +52,7 @@ class Discussion extends Component
         }
 
         $discussion = DiscussionModel::find($this->discussion['id']);
-        $this->can_delete_discussion = $discussion->user == auth()->user() || auth()->user()->hasRole('discussions_moderator') || auth()->user->hasRole('users_moderator');
+        $this->can_delete_discussion = $discussion->user == auth()->user() || auth()->user()->hasRole('discussions_moderator') || auth()->user()->hasRole('users_moderator');
         $this->can_edit_discussion = $discussion->user == auth()->user() && !$discussion->user->banned;
 
         $this->liked_discussion = DiscussionLikesModel::where('user_id', auth()->user()->id)
