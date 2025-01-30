@@ -1,9 +1,9 @@
-<div class="max-w-4xl mx-auto text-zinc-200 p-4">
-    <div class="bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-2xl shadow-xl">
+<div class="w-[95%] lg:w-2/3 mx-auto text-zinc-200">
+    <div class="bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-lg">
         <div class="grid grid-rows-2 md:grid-rows-none md:grid-cols-2">
             <div class="border-b md:border-b-0 md:border-r border-indigo-600/50 transition-all">
                 <button type="button" wire:click="changeTab('your_informations')" 
-                    class="p-4 md:p-6 text-center transition-all hover:bg-indigo-700/30 rounded-tl-2xl w-full">
+                    class="p-4 md:p-6 transition-all hover:bg-indigo-700/30 rounded-tl-lg w-full">
                     <div class="@if($active_tab == 'your_informations') text-white @else text-zinc-400 @endif">
                         <i class="fa-solid fa-user-tie text-2xl mb-2"></i>
                         <p class="text-lg font-bold tracking-wide">Your Information</p>
@@ -12,7 +12,7 @@
             </div>
             <div class="transition-all">
                 <button type="button" wire:click="changeTab('settings')"
-                    class="p-4 md:p-6 text-center transition-all hover:bg-indigo-700/30 rounded-tr-2xl w-full">
+                    class="p-4 md:p-6 transition-all hover:bg-indigo-700/30 rounded-tr-lg w-full">
                     <div class="@if($active_tab == 'settings') text-white @else text-zinc-400 @endif">
                         <i class="fa-solid fa-user-gear text-2xl mb-2"></i>
                         <p class="text-lg font-bold tracking-wide">Settings</p>
@@ -23,7 +23,7 @@
     </div>
 
     @if ($active_tab == 'your_informations')
-        <div class="bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-2xl p-8 mt-6 shadow-xl">
+        <div class="bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-lg p-8 mt-6">
             @if ($banned)
                 <livewire:Alert title="THIS ACCOUNT IS BANNED"
                     message="This account was banned as a result of breaking our community guidelines. Your account will be restricted from certain actions."
@@ -78,7 +78,7 @@
     @endif
 
     @if ($active_tab == 'settings')
-        <form wire:submit="updateUser" class="bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-2xl p-8 mt-6 shadow-xl" autocomplete="off">
+        <form wire:submit="updateUser" class="bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-lg p-8 mt-6" autocomplete="off">
         <input type="password" name="password_hidden" class="hidden">
         <input type="email" name="email_hidden" class="hidden">
             <div class="space-y-6">
