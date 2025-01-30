@@ -7,7 +7,7 @@
     <title>{{ config('app.name') }} - Home</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bg-slate-950">
+<body class="bg-slate-950 bg-gradient-to-br from-slate-950 to-slate-900 min-h-screen">
     <livewire:homepage />
 </body>
 </html>

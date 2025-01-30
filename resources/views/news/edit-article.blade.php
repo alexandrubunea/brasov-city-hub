@@ -8,7 +8,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="bg-slate-950">
+<body class="bg-slate-950 bg-gradient-to-br from-slate-950 to-slate-900 min-h-screen">
     <livewire:NavigationBar active_tab="news" />
     <livewire:News.CreateOrEditArticle mode="edit" id="{{ $id }}" />
     <livewire:footer />
