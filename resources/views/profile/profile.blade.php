@@ -9,8 +9,10 @@
 </head>
 
 <body class="bg-slate-950">
-    <livewire:NavigationBar active_tab="profile"/>
+    <livewire:NavigationBar active_tab="profile" />
+    <livewire:Profile.Dashboard />
     <livewire:footer />
+    <x-livewire-alert::scripts />
 </body>
 
 </html>
