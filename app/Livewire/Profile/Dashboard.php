@@ -83,24 +83,6 @@ class Dashboard extends Component
         ];
     }
 
-    public function updated($property)
-    {
-        try {
-            $this->validateOnly($property);
-        } catch (ValidationException $e) {
-            $this->alert(
-                'error',
-                'Validation Error',
-                [
-                    'toast' => false,
-                    'text' => $e->validator->errors()->first(),
-                    'position' => 'center',
-                    'duration' => '5000'
-                ]
-            );
-        }
-    }
-
     public function updateUser()
     {
         if (empty($this->new_email) && empty($this->new_password))

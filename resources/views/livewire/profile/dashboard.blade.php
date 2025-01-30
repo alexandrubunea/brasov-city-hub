@@ -2,22 +2,22 @@
     <div class="bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-2xl shadow-xl">
         <div class="grid grid-rows-2 md:grid-rows-none md:grid-cols-2">
             <div class="border-b md:border-b-0 md:border-r border-indigo-600/50 transition-all">
-                <h1 wire:click="changeTab('your_informations')" 
-                    class="p-4 md:p-6 text-center transition-all hover:bg-indigo-700/30 rounded-tl-2xl hover:cursor-pointer">
+                <button type="button" wire:click="changeTab('your_informations')" 
+                    class="p-4 md:p-6 text-center transition-all hover:bg-indigo-700/30 rounded-tl-2xl w-full">
                     <div class="@if($active_tab == 'your_informations') text-white @else text-zinc-400 @endif">
                         <i class="fa-solid fa-user-tie text-2xl mb-2"></i>
                         <p class="text-lg font-bold tracking-wide">Your Information</p>
                     </div>
-                </h1>
+                </button>
             </div>
             <div class="transition-all">
-                <h1 wire:click="changeTab('settings')"
-                    class="p-4 md:p-6 text-center transition-all hover:bg-indigo-700/30 rounded-tr-2xl hover:cursor-pointer">
+                <button type="button" wire:click="changeTab('settings')"
+                    class="p-4 md:p-6 text-center transition-all hover:bg-indigo-700/30 rounded-tr-2xl w-full">
                     <div class="@if($active_tab == 'settings') text-white @else text-zinc-400 @endif">
                         <i class="fa-solid fa-user-gear text-2xl mb-2"></i>
                         <p class="text-lg font-bold tracking-wide">Settings</p>
                     </div>
-                </h1>
+                </button>
             </div>
         </div>
     </div>
@@ -78,25 +78,29 @@
     @endif
 
     @if ($active_tab == 'settings')
-        <form wire:submit="updateUser" class="bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-2xl p-8 mt-6 shadow-xl">
+        <form wire:submit="updateUser" class="bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-2xl p-8 mt-6 shadow-xl" autocomplete="off">
+        <input type="password" name="password_hidden" class="hidden">
+        <input type="email" name="email_hidden" class="hidden">
             <div class="space-y-6">
                 <div class="space-y-6">
-                    <h2 class="text-xl font-bold mb-6">Email Settings</h2>
+                    <h2 class="text-xl font-bold mb-6">E-mail Settings</h2>
                     <div>
-                        <label class="block text-sm font-medium text-zinc-300 mb-2" for="email">New Email</label>
+                        <label class="block text-sm font-medium text-zinc-300 mb-2" for="new_email">New E-mail</label>
                         <input
                             class="w-full bg-zinc-900/20 text-white rounded-xl border-2 border-transparent p-3 transition-all focus:border-indigo-400 focus:ring-2 focus:ring-indigo-400/50 placeholder-zinc-400"
                             wire:model="new_email"
                             type="email"
-                            placeholder="Enter new email address">
+                            id="new_email"
+                            placeholder="Enter new e-mail address">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-zinc-300 mb-2" for="confirm_email">Confirm Email</label>
+                        <label class="block text-sm font-medium text-zinc-300 mb-2" for="confirm_email">Confirm E-mail</label>
                         <input
                             class="w-full bg-zinc-900/20 text-white rounded-xl border-2 border-transparent p-3 transition-all focus:border-indigo-400 focus:ring-2 focus:ring-indigo-400/50 placeholder-zinc-400"
                             wire:model="confirm_email"
                             type="email"
-                            placeholder="Confirm new email address">
+                            id="confirm_email"
+                            placeholder="Confirm new e-mail address">
                     </div>
                 </div>
 
